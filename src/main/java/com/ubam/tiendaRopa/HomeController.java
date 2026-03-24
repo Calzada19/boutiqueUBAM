@@ -15,9 +15,33 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
 
-// http://localhost:8080/    
+// http://localhost:8080/  
 @GetMapping("/")
 public String inicio(Model model) {
     return "index";
 }
+@GetMapping("/productos")
+    public String productos() {
+        return "productos";
+    }
+
+    @GetMapping("/producto")
+    public String producto() {
+        return "producto";
+    }
+
+    @GetMapping("/carrito")
+    public String carrito() {
+        return "carrito";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @GetMapping("/registro")
+    public String registro() {
+        return "registro";
+    }
 }
