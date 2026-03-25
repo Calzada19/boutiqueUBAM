@@ -8,79 +8,60 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
 <header class="navbar" th:fragment="navbar">
 
-<div class="nav-container">
-
-<div class="logo">
-<a th:href="@{/}">TIENDA</a>
-</div>
-
-<nav class="menu">
+<div class="menu">
 
 <div class="menu-item">
 
-<a>MUJER</a>
+<a href="#">MUJER</a>
 
 <div class="mega-menu">
 
 <div class="col">
 <h4>Colección</h4>
-<a th:href="@{/productos(categoria='mujer')}">Playeras</a>
-<a>Jeans</a>
-<a>Vestidos</a>
+<a href="#">Playeras</a>
+<a href="#">Jeans</a>
+<a href="#">Vestidos</a>
+<a href="#">Pantalones</a>
 </div>
 
 <div class="col">
 <h4>Accesorios</h4>
-<a>Bolsas</a>
-<a>Zapatos</a>
+<a href="#">Zapatos</a>
+<a href="#">Bolsas</a>
+<a href="#">Accesorios</a>
 </div>
 
 </div>
-
-</div>
-
-<div class="menu-item">
-
-<a>HOMBRE</a>
-
-<div class="mega-menu">
-
-<div class="col">
-<h4>Colección</h4>
-<a>Camisas</a>
-<a>Pantalones</a>
-<a>Sudaderas</a>
-</div>
-
-</div>
-
 </div>
 
 <div class="menu-item">
 
-<a>KIDS</a>
+<a href="#">HOMBRE</a>
 
 <div class="mega-menu">
 
 <div class="col">
-<h4>Niños</h4>
-<a>Playeras</a>
-<a>Pantalones</a>
+<h4>Hombre</h4>
+<a href="#">Playeras</a>
+<a href="#">Camisas</a>
+<a href="#">Pantalones</a>
+<a href="#">Sudaderas</a>
 </div>
 
 </div>
 
 </div>
 
-</nav>
-
-<div class="nav-right">
-
-<a th:href="@{/login}">Iniciar sesión</a>
-<a th:href="@{/registro}">Registro</a>
-<a th:href="@{/carrito}">Carrito</a>
-
 </div>
+
+<div class="logo">
+🐶
+</div>
+
+<div class="acciones">
+
+<a th:href="@{/login}">INICIAR SESIÓN</a>
+<a th:href="@{/carrito}">CARRITO</a>
 
 </div>
 
