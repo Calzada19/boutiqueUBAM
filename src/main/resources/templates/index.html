@@ -9,32 +9,24 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 <title>Tienda</title>
 <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-
 <body>
-
 <header th:replace="fragments/navbar :: navbar"></header>
-    
 <section class="categorias">
-
 <div class="categoria mujer">
 <a th:href="@{/productos(categoria='mujer')}">
 <h1>MUJER</h1>
 </a>
 </div>
-
 <div class="categoria hombre">
 <a th:href="@{/productos(categoria='hombre')}">
 <h1>HOMBRE</h1>
 </a>
 </div>
-
 <div class="categoria kids">
 <a th:href="@{/productos(categoria='ninos')}">
 <h1>KIDS</h1>
 </a>
 </div>
-
 </section>
-
 </body>
 </html>

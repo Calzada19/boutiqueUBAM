@@ -6,7 +6,7 @@ package com.ubam.tiendaRopa.Controller;
 
 /**
  *
- * @author carlo
+ * @author carlos
  */
 public class BoutiqueAppController {
     

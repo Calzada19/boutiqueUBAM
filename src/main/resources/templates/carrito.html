@@ -4,46 +4,27 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
 <meta charset="UTF-8">
 <title>Carrito</title>
 <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-
 <body>
-
 <header th:replace="fragments/navbar :: navbar"></header>
-
 <section class="carrito-container">
-
 <h2>Carrito de compras</h2>
-
 <div class="carrito-item">
-
 <img src="/img/producto.jpg">
-
 <div>
-
 <h3>Nombre producto</h3>
-
 <p>$299</p>
-
 </div>
-
 <button class="btn-eliminar">Eliminar</button>
-
 </div>
-
 <div class="carrito-total">
-
 <h3>Total: $299</h3>
-
 <button class="btn-comprar">Finalizar compra</button>
-
 </div>
-
 </section>
-
 </body>
 </html>

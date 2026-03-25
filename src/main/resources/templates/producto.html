@@ -4,38 +4,23 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
 <meta charset="UTF-8">
 <title>Producto</title>
 <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-
 <body>
-
 <header th:replace="fragments/navbar :: navbar"></header>
-
 <section class="producto-detalle">
-
 <div class="producto-imagen">
-
 <img th:src="@{/producto/imagen/{id}(id=${producto.id})}">
-
 </div>
-
 <div class="producto-info">
-
 <h2 th:text="${producto.nombre}"></h2>
-
 <p class="precio" th:text="'$' + ${producto.precio}"></p>
-
 <p th:text="${producto.descripcion}"></p>
-
 <button class="btn-carrito">Agregar al carrito</button>
-
 </div>
-
 </section>
-
 </body>
 </html>

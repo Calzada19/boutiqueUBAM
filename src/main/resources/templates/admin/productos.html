@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Productos</title>
+<link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+<h2>Lista de Productos</h2>
+<a th:href="@{/admin/agregarProducto}" class="btn">Agregar Producto</a>
+<table>
+<tr>
+<th>ID</th>
+<th>Nombre</th>
+<th>Precio</th>
+<th>Stock</th>
+<th>Acciones</th>
+</tr>
+<tr th:each="p : ${productos}">
+<td th:text="${p.id_producto}"></td>
+<td th:text="${p.nombre}"></td>
+<td th:text="${p.precio}"></td>
+<td th:text="${p.stock}"></td>
+<td>
+<a th:href="@{/admin/editarProducto/{id}(id=${p.id_producto})}">
+Editar
+</a>
+<a th:href="@{/admin/eliminarProducto/{id}(id=${p.id_producto})}">
+Eliminar
+</a>
+</td>
+</tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Panel Admin</title>
+<link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+
+<body>
+
+<h1>Panel de Administración</h1>
+
+<div class="admin-menu">
+
+<a th:href="@{/admin/productos}">📦 Administrar Productos</a>
+
+<a th:href="@{/admin/categorias}">📂 Categorías</a>
+
+<a th:href="@{/admin/agregarProducto}">➕ Agregar Producto</a>
+
+</div>
+
+</body>
+</html>
