@@ -3,33 +3,42 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
-<html lang="es">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
 <meta charset="UTF-8">
 <title>Productos</title>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
 
-<header>
-<h1>Productos</h1>
+<header th:replace="fragments/navbar :: navbar"></header>
 
-<nav>
-<a href="index.html">Inicio</a>
-<a href="carrito.html">Carrito</a>
-</nav>
-</header>
+<section class="productos-container">
 
-<h2 id="tituloCategoria"></h2>
+<h2 class="titulo-categoria">Productos</h2>
 
-<section id="productosContainer" class="productos">
+<div class="productos-grid">
 
-<!-- Aquí se cargarán los productos desde la API -->
+<div class="producto-card" th:each="producto : ${productos}">
+
+<img th:src="@{/producto/imagen/{id}(id=${producto.id})}">
+
+<h3 th:text="${producto.nombre}"></h3>
+
+<p class="precio" th:text="'$' + ${producto.precio}"></p>
+
+<a class="btn-ver"
+th:href="@{/producto/{id}(id=${producto.id})}">
+Ver producto
+</a>
+
+</div>
+
+</div>
 
 </section>
-
-<script src="productos.js"></script>
 
 </body>
 </html>

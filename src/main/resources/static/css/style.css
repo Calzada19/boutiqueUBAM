@@ -1,0 +1,375 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 23 mar 2026, 7:01:08 p.m.
+    Author     : carlo
+*/
+body{
+margin:0;
+font-family:Arial;
+}
+
+/* NAVBAR */
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 40px;
+background:white;
+border-bottom:1px solid #ddd;
+}
+
+.menu a{
+margin-right:20px;
+text-decoration:none;
+color:black;
+font-weight:bold;
+}
+
+.logo{
+font-size:24px;
+}
+
+.acciones a{
+margin-left:20px;
+text-decoration:none;
+color:black;
+}
+
+/* CATEGORIAS */
+
+.categorias{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+height:85vh;
+}
+
+.categoria{
+position:relative;
+display:flex;
+justify-content:center;
+align-items:flex-end;
+color:white;
+font-size:40px;
+font-weight:bold;
+text-align:center;
+}
+
+.categoria h1{
+margin-bottom:40px;
+}
+
+/* IMAGENES */
+
+.mujer{
+background:url("/img/mujer.jpg") center/cover;
+}
+
+.hombre{
+background:url("/img/hombre.jpg") center/cover;
+}
+
+.kids{
+background:url("/img/kids.jpg") center/cover;
+}
+
+/* EFECTO HOVER */
+
+.categoria:hover{
+opacity:0.9;
+cursor:pointer;
+}
+
+/* MENU */
+
+.menu{
+display:flex;
+gap:30px;
+}
+
+.menu-item{
+position:relative;
+}
+
+/* MEGA MENU OCULTO */
+
+.mega-menu{
+display:none;
+position:absolute;
+top:35px;
+left:0;
+background:white;
+padding:30px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+gap:40px;
+width:600px;
+}
+
+/* SOLO SE MUESTRA AL PASAR EL CURSOR */
+
+.menu-item:hover .mega-menu{
+display:flex;
+}
+
+/* COLUMNAS */
+
+.col{
+display:flex;
+flex-direction:column;
+}
+
+.col a{
+margin:5px 0;
+text-decoration:none;
+color:black;
+}
+
+
+
+/* GRID PRODUCTOS */
+
+.productos-container{
+padding:40px;
+}
+
+.productos-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:25px;
+}
+
+.producto-card{
+border:1px solid #ddd;
+padding:15px;
+text-align:center;
+background:white;
+}
+
+.producto-card img{
+width:100%;
+height:250px;
+object-fit:cover;
+}
+
+.precio{
+font-weight:bold;
+margin:10px 0;
+}
+
+.btn-ver{
+display:inline-block;
+background:black;
+color:white;
+padding:8px 15px;
+text-decoration:none;
+}
+
+/* DETALLE PRODUCTO */
+
+.producto-detalle{
+display:flex;
+gap:40px;
+padding:40px;
+}
+
+.producto-imagen img{
+width:400px;
+}
+
+.producto-info{
+max-width:400px;
+}
+
+.btn-carrito{
+background:black;
+color:white;
+padding:10px 20px;
+border:none;
+cursor:pointer;
+}
+
+/* CARRITO */
+
+.carrito-container{
+padding:40px;
+}
+
+.carrito-item{
+display:flex;
+align-items:center;
+gap:20px;
+border-bottom:1px solid #ddd;
+padding:20px 0;
+}
+
+.carrito-item img{
+width:80px;
+}
+
+.btn-eliminar{
+background:red;
+color:white;
+border:none;
+padding:5px 10px;
+}
+
+/* LOGIN */
+
+.login-container{
+width:300px;
+margin:80px auto;
+}
+
+.login-container form{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.login-container input{
+padding:10px;
+border:1px solid #ccc;
+}
+
+.btn-login{
+background:black;
+color:white;
+padding:10px;
+border:none;
+}
+
+
+
+/* NAVBAR */
+
+.navbar{
+position:relative;
+background:white;
+z-index:1000;
+border-bottom:1px solid #ddd;
+}
+
+.nav-container{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 40px;
+}
+
+/* MENU */
+
+.menu{
+display:flex;
+gap:30px;
+}
+
+.menu-item{
+position:relative;
+}
+
+/* MEGA MENU */
+
+.mega-menu{
+
+display:none;
+position:absolute;
+
+top:40px;
+left:0;
+
+background:white;
+
+width:800px;
+
+padding:30px;
+
+box-shadow:0 10px 30px rgba(0,0,0,0.15);
+
+z-index:2000;
+
+}
+
+/* MOSTRAR AL PASAR EL CURSOR */
+
+.menu-item:hover .mega-menu{
+display:flex;
+gap:40px;
+}
+
+/* COLUMNAS */
+
+.col{
+display:flex;
+flex-direction:column;
+gap:8px;
+}
+
+
+
+/* NAVBAR */
+
+.navbar{
+position:relative;
+background:white;
+border-bottom:1px solid #ddd;
+z-index:1000;
+}
+
+.nav-container{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 40px;
+}
+
+/* MENU */
+
+.menu{
+display:flex;
+gap:30px;
+}
+
+.menu-item{
+position:relative;
+cursor:pointer;
+}
+
+/* MEGA MENU */
+
+.mega-menu{
+
+display:none;
+
+position:absolute;
+
+top:40px;
+
+left:0;
+
+background:white;
+
+padding:30px;
+
+box-shadow:0 10px 20px rgba(0,0,0,0.15);
+
+width:600px;
+
+z-index:2000;
+
+}
+
+/* APARECE SOLO CON HOVER */
+
+.menu-item:hover .mega-menu{
+display:flex;
+gap:40px;
+}
+
+.col{
+display:flex;
+flex-direction:column;
+gap:8px;
+}

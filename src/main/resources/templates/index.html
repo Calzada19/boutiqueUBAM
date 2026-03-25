@@ -3,50 +3,34 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
-<html lang="es">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Tienda de Ropa</title>
-<link rel="stylesheet" href="styles.css">
+<title>Tienda</title>
+<link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
 
-<header>
-<h1>Tienda de Ropa</h1>
-
-<nav>
-<a href="index.html">Inicio</a>
-<a href="productos.html?categoria=hombre">Hombre</a>
-<a href="productos.html?categoria=mujer">Mujer</a>
-<a href="productos.html?categoria=ninos">Niños</a>
-<a href="carrito.html">Carrito</a>
-<a href="login.html">Login</a>
-</nav>
-</header>
-
-<section class="banner">
-<h2>Bienvenido a nuestra tienda</h2>
-<p>Descubre las mejores prendas.</p>
-</section>
-
+<header th:replace="fragments/navbar :: navbar"></header>
+    
 <section class="categorias">
 
-<div class="categoria">
-<a href="productos.html?categoria=hombre">
-<h3>Hombre</h3>
+<div class="categoria mujer">
+<a th:href="@{/productos(categoria='mujer')}">
+<h1>MUJER</h1>
 </a>
 </div>
 
-<div class="categoria">
-<a href="productos.html?categoria=mujer">
-<h3>Mujer</h3>
+<div class="categoria hombre">
+<a th:href="@{/productos(categoria='hombre')}">
+<h1>HOMBRE</h1>
 </a>
 </div>
 
-<div class="categoria">
-<a href="productos.html?categoria=ninos">
-<h3>Niños</h3>
+<div class="categoria kids">
+<a th:href="@{/productos(categoria='ninos')}">
+<h1>KIDS</h1>
 </a>
 </div>
 
