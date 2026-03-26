@@ -65,9 +65,9 @@ public class BoutiqueController {
         return "admin/productos";
     }
 
-    @GetMapping("/admin/agregarProducto")
+    @GetMapping("/admin/agregar")
     public String agregarProducto(){
-        return "admin/agregar_producto";
+        return "admin/agregar";
     }
 
 }
