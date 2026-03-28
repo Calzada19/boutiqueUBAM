@@ -1,32 +1,71 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Tienda</title>
-<link rel="stylesheet" th:href="@{/css/style.css}">
+
+<link rel="stylesheet" th:href="@{/css/indexcss.css}">
 </head>
 <body>
+
 <header th:replace="fragments/navbar :: navbar"></header>
-<section class="categorias">
-<div class="categoria mujer">
-<a th:href="@{/productos(categoria='mujer')}">
-<h1>MUJER</h1>
-</a>
-</div>
-<div class="categoria hombre">
-<a th:href="@{/productos(categoria='hombre')}">
-<h1>HOMBRE</h1>
-</a>
-</div>
-<div class="categoria kids">
-<a th:href="@{/productos(categoria='ninos')}">
-<h1>KIDS</h1>
-</a>
-</div>
+<!-- HERO -->
+<section class="hero">
+    <img th:src="@{/img/fondo1.jpg}" alt="Banner">
+
+    <div class="overlay"></div>
+
+    <div class="hero-content">
+        <h1>
+            NEW<br>
+            <span>DROPS</span>
+        </h1>
+
+        <a th:href="@{/productos}" class="btn">Comprar ahora</a>
+
+        <p>Colección 2026 — Edición limitada</p>
+    </div>
 </section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+    <div class="track">
+        <span>Envío gratis en compras +$999 ✦ Nuevos drops cada semana ✦ Streetwear auténtico ✦</span>
+        <span>Envío gratis en compras +$999 ✦ Nuevos drops cada semana ✦ Streetwear auténtico ✦</span>
+    </div>
+</div>
+
+<!-- CATEGORÍAS -->
+<section class="categorias">
+
+    <h2 class="titulo">Categorías</h2>
+
+    <div class="card-container">
+
+        <div class="card">
+            <img th:src="@{/img/mujer.jpg}" alt="Mujer">
+            <a th:href="@{/productos(categoria='mujer')}" class="overlay-card">
+                <h1>MUJER</h1>
+            </a>
+        </div>
+
+        <div class="card">
+            <img th:src="@{/img/hombre.jpg}" alt="Hombre">
+            <a th:href="@{/productos(categoria='hombre')}" class="overlay-card">
+                <h1>HOMBRE</h1>
+            </a>
+        </div>
+
+        <div class="card">
+            <img th:src="@{/img/kids.jpg}" alt="Kids">
+            <a th:href="@{/productos(categoria='ninos')}" class="overlay-card">
+                <h1>KIDS</h1>
+            </a>
+        </div>
+
+    </div>
+
+</section>
+
 </body>
 </html>

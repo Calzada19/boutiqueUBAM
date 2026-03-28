@@ -1,19 +1,70 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Categorías</title>
 <link rel="stylesheet" th:href="@{/css/admin.css}">
 </head>
+
 <body>
-<h2>Administrar Categorías</h2>
-<form th:action="@{/admin/guardarCategoria}" method="post">
-<input type="text" name="nombre" placeholder="Nombre categoría">
-<button type="submit">Guardar</button>
-</form>
+
+<div class="admin-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <h2 class="logo">PANEL <span>ADMIN</span></h2>
+
+        <nav>
+            <a th:href="@{/admin/dashboard}" class="nav-item">Dashboard</a>
+            <a th:href="@{/admin/productos}" class="nav-item">Productos</a>
+            <a th:href="@{/admin/categorias}" class="nav-item active">Categorías</a>
+            <a th:href="@{/admin/agregar}" class="nav-item">Agregar</a>
+        </nav>
+    </aside>
+
+    <!-- CONTENIDO -->
+    <main class="admin-main">
+
+        <div class="top-bar">
+            <a th:href="@{/}">← TIENDA</a>
+        </div>
+
+        <h1 class="admin-title">
+            GESTIÓN DE <br>
+            <span>CATEGORÍAS</span>
+        </h1>
+
+        <!-- FORMULARIO -->
+        <div class="form-card">
+            <form th:action="@{/admin/guardarCategoria}" method="post">
+                <input type="text" name="nombre" placeholder="Nombre de la categoría" required>
+                <button type="submit">Guardar</button>
+            </form>
+        </div>
+
+        <!-- LISTA (opcional si luego muestras datos) -->
+        <div class="cards">
+
+            <div class="card">
+                <h2>👕</h2>
+                <p>MUJER</p>
+            </div>
+
+            <div class="card">
+                <h2>👔</h2>
+                <p>HOMBRE</p>
+            </div>
+
+            <div class="card">
+                <h2>🧸</h2>
+                <p>NIÑOS</p>
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
 </body>
 </html>

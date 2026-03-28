@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
@@ -10,17 +6,46 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+
 <header th:replace="fragments/navbar :: navbar"></header>
+
 <section class="producto-detalle">
-<div class="producto-imagen">
-<img th:src="@{/producto/imagen/{id}(id=${producto.id})}">
-</div>
-<div class="producto-info">
-<h2 th:text="${producto.nombre}"></h2>
-<p class="precio" th:text="'$' + ${producto.precio}"></p>
-<p th:text="${producto.descripcion}"></p>
-<button class="btn-carrito">Agregar al carrito</button>
-</div>
+
+    <!-- IMAGEN -->
+    <div class="producto-imagen">
+        <img th:src="@{/producto/imagen/{id}(id=${producto.id})}" alt="producto">
+    </div>
+
+    <!-- INFO -->
+    <div class="producto-info">
+
+        <p class="categoria" th:text="${producto.categoria}"></p>
+
+        <h1 th:text="${producto.nombre}"></h1>
+
+        <p class="precio" th:text="'$' + ${producto.precio}"></p>
+
+        <p class="descripcion" th:text="${producto.descripcion}"></p>
+
+        <!-- STOCK -->
+        <p class="stock" th:if="${producto.stock > 0}">
+            Disponible: <span th:text="${producto.stock}"></span>
+        </p>
+
+        <p class="stock agotado" th:if="${producto.stock == 0}">
+            Agotado
+        </p>
+
+        <!-- BOTÓN -->
+        <a th:href="@{/carrito/agregar/{id}(id=${producto.id})}"
+           class="btn-carrito"
+           th:classappend="${producto.stock == 0} ? 'disabled'">
+            Agregar al carrito
+        </a>
+
+    </div>
+
 </section>
+
 </body>
 </html>

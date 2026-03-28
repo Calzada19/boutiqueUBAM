@@ -1,0 +1,74 @@
+/* ===== CARRITO ===== */
+.cart-container {
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 20px;
+}
+
+.cart-title {
+    font-size: 40px;
+    margin-bottom: 30px;
+}
+
+/* ITEMS */
+.cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ITEM */
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 20px;
+}
+
+.cart-item img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+}
+
+/* INFO */
+.info h2 {
+    font-size: 18px;
+}
+
+.info p {
+    color: #aaa;
+    font-size: 14px;
+}
+
+/* DELETE */
+.actions a {
+    color: red;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+/* SUMMARY */
+.cart-summary {
+    margin-top: 40px;
+    text-align: right;
+}
+
+.cart-summary h2 {
+    margin-bottom: 20px;
+}
+
+/* BOTÓN */
+.btn {
+    background: #00ff88;
+    color: black;
+    padding: 15px 30px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: white;
+}

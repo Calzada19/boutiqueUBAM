@@ -1,39 +1,73 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Productos</title>
+<title>Admin - Productos</title>
 <link rel="stylesheet" th:href="@{/css/admin.css}">
 </head>
+
 <body>
-<h2>Lista de Productos</h2>
-<a th:href="@{/admin/agregarProducto}" class="btn">Agregar Producto</a>
-<table>
-<tr>
-<th>ID</th>
-<th>Nombre</th>
-<th>Precio</th>
-<th>Stock</th>
-<th>Acciones</th>
-</tr>
-<tr th:each="p : ${productos}">
-<td th:text="${p.id_producto}"></td>
-<td th:text="${p.nombre}"></td>
-<td th:text="${p.precio}"></td>
-<td th:text="${p.stock}"></td>
-<td>
-<a th:href="@{/admin/editarProducto/{id}(id=${p.id_producto})}">
-Editar
-</a>
-<a th:href="@{/admin/eliminarProducto/{id}(id=${p.id_producto})}">
-Eliminar
-</a>
-</td>
-</tr>
-</table>
+
+<div class="admin-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <h2 class="logo">PANEL <span>ADMIN</span></h2>
+
+        <nav>
+            <a th:href="@{/admin/dashboard}" class="nav-item">Dashboard</a>
+            <a th:href="@{/admin/productos}" class="nav-item active">Productos</a>
+            <a th:href="@{/admin/categorias}" class="nav-item">Categorías</a>
+            <a th:href="@{/admin/agregar}" class="nav-item">Agregar</a>
+        </nav>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-content">
+
+        <!-- HEADER -->
+        <div class="top-bar">
+            <a th:href="@{/}" class="back">← TIENDA</a>
+            <h1>PRODUCTOS</h1>
+
+            <a th:href="@{/admin/agregarProducto}" class="btn-add">
+                + AGREGAR
+            </a>
+        </div>
+
+        <!-- TABLE -->
+        <div class="table-container">
+            <table class="admin-table">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NOMBRE</th>
+                        <th>PRECIO</th>
+                        <th>STOCK</th>
+                        <th>ACCIONES</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="p : ${productos}">
+                        <td th:text="${p.id_producto}"></td>
+                        <td th:text="${p.nombre}"></td>
+                        <td class="precio" th:text="'$' + ${p.precio}"></td>
+                        <td th:text="${p.stock}"></td>
+                        <td class="acciones">
+                            <a th:href="@{/admin/editarProducto/{id}(id=${p.id_producto})}">✏</a>
+                            <a th:href="@{/admin/eliminarProducto/{id}(id=${p.id_producto})}">🗑</a>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+    </main>
+
+</div>
+
 </body>
 </html>

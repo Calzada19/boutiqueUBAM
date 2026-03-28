@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -13,15 +9,53 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
 <body>
 
-<h1>Panel de Administración</h1>
+<div class="admin-container">
 
-<div class="admin-menu">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <h2 class="logo">PANEL <span>ADMIN</span></h2>
 
-<a th:href="@{/admin/productos}">📦 Administrar Productos</a>
+        <nav>
+            <a th:href="@{/admin/dashboard}" class="nav-item">Dashboard</a>
+            <a th:href="@{/admin/productos}" class="nav-item active">Productos</a>
+            <a th:href="@{/admin/categorias}" class="nav-item">Categorías</a>
+            <a th:href="@{/admin/agregar}" class="nav-item">Agregar</a>
+        </nav>
+    </aside>
 
-<a th:href="@{/admin/categorias}">📂 Categorías</a>
+    <!-- CONTENIDO -->
+    <main class="admin-main">
 
-<a th:href="@{/admin/agregar}">➕ Agregar Producto</a>
+        <div class="top-bar">
+            <a th:href="@{/}">← TIENDA</a>
+        </div>
+
+        <h1 class="admin-title">
+            PANEL DE <br>
+            <span>CONTROL</span>
+        </h1>
+
+        <!-- CARDS -->
+        <div class="cards">
+
+            <div class="card">
+                <h2>📦</h2>
+                <p>PRODUCTOS</p>
+            </div>
+
+            <div class="card">
+                <h2>📂</h2>
+                <p>CATEGORÍAS</p>
+            </div>
+
+            <div class="card add">
+                <h2>+</h2>
+                <p>AGREGAR</p>
+            </div>
+
+        </div>
+
+    </main>
 
 </div>
 
