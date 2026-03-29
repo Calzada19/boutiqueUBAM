@@ -10,7 +10,6 @@
 
 <div class="admin-container">
 
-    <!-- SIDEBAR -->
     <aside class="sidebar">
         <h2 class="logo">PANEL <span>ADMIN</span></h2>
 
@@ -22,7 +21,6 @@
         </nav>
     </aside>
 
-    <!-- CONTENIDO -->
     <main class="admin-main">
 
         <div class="top-bar">
@@ -34,30 +32,36 @@
             <span>CATEGORÍAS</span>
         </h1>
 
-        <!-- FORMULARIO -->
+        <!-- FORM -->
         <div class="form-card">
             <form th:action="@{/admin/guardarCategoria}" method="post">
-                <input type="text" name="nombre" placeholder="Nombre de la categoría" required>
+
+                <label>Nombre</label>
+                <input type="text" name="Categoria_Nombre" required>
+
+                <label>Orden</label>
+                <input type="number" name="Categoria_Orden" required>
+
                 <button type="submit">Guardar</button>
+
             </form>
         </div>
 
-        <!-- LISTA (opcional si luego muestras datos) -->
+        <!-- MENSAJE VACÍO -->
+        <div th:if="${categorias == null or #lists.isEmpty(categorias)}">
+            <p>No hay categorías registradas</p>
+        </div>
+
+        <!-- LISTA -->
         <div class="cards">
 
-            <div class="card">
-                <h2>👕</h2>
-                <p>MUJER</p>
-            </div>
+            <div class="card" th:each="c : ${categorias}">
+                <h2>📂</h2>
+                <p th:text="${c.Categoria_Nombre}"></p>
 
-            <div class="card">
-                <h2>👔</h2>
-                <p>HOMBRE</p>
-            </div>
-
-            <div class="card">
-                <h2>🧸</h2>
-                <p>NIÑOS</p>
+                <div class="acciones">
+                    <a th:href="@{/admin/eliminarCategoria/{id}(id=${c.CategoriaId})}">🗑</a>
+                </div>
             </div>
 
         </div>

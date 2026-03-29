@@ -16,10 +16,17 @@
         <h2 class="logo">PANEL <span>ADMIN</span></h2>
 
         <nav>
-            <a th:href="@{/admin/dashboard}" class="nav-item">Dashboard</a>
-            <a th:href="@{/admin/productos}" class="nav-item active">Productos</a>
-            <a th:href="@{/admin/categorias}" class="nav-item">Categorías</a>
-            <a th:href="@{/admin/agregar}" class="nav-item">Agregar</a>
+            <a th:href="@{/admin/dashboard}" class="nav-item"
+               th:classappend="${active == 'dashboard'} ? 'active'">Dashboard</a>
+
+            <a th:href="@{/admin/productos}" class="nav-item"
+               th:classappend="${active == 'productos'} ? 'active'">Productos</a>
+
+            <a th:href="@{/admin/categorias}" class="nav-item"
+               th:classappend="${active == 'categorias'} ? 'active'">Categorías</a>
+
+            <a th:href="@{/admin/agregar}" class="nav-item"
+               th:classappend="${active == 'agregar'} ? 'active'">Agregar</a>
         </nav>
     </aside>
 
@@ -28,6 +35,9 @@
 
         <div class="top-bar">
             <a th:href="@{/}">← TIENDA</a>
+            <div class="admin-user">
+                <span>Admin</span>
+            </div>
         </div>
 
         <h1 class="admin-title">
@@ -38,20 +48,22 @@
         <!-- CARDS -->
         <div class="cards">
 
-            <div class="card">
+            <a th:href="@{/admin/productos}" class="card">
                 <h2>📦</h2>
                 <p>PRODUCTOS</p>
-            </div>
+                <span th:text="${totalProductos} ?: 0">0</span>
+            </a>
 
-            <div class="card">
+            <a th:href="@{/admin/categorias}" class="card">
                 <h2>📂</h2>
                 <p>CATEGORÍAS</p>
-            </div>
+                <span th:text="${totalCategorias} ?: 0">0</span>
+            </a>
 
-            <div class="card add">
+            <a th:href="@{/admin/agregar}" class="card add">
                 <h2>+</h2>
                 <p>AGREGAR</p>
-            </div>
+            </a>
 
         </div>
 

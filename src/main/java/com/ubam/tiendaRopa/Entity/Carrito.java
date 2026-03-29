@@ -14,11 +14,14 @@ import java.util.List;
 @Entity
 @Table(name="carrito")
 public class Carrito {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int CarritoId;
+    @Column(name="CarritoId")
+    private int carritoId;
 
-    private int Carrito_Estado;
+    @Column(name="Carrito_Estado")
+    private int carritoEstado;
 
     @OneToOne
     @JoinColumn(name="Carrito_UsuarioId")
@@ -30,19 +33,19 @@ public class Carrito {
     /**/
 
     public int getCarritoId() {
-        return CarritoId;
+        return carritoId;
     }
 
-    public void setCarritoId(int CarritoId) {
-        this.CarritoId = CarritoId;
+    public void setCarritoId(int carritoId) {
+        this.carritoId = carritoId;
     }
 
-    public int getCarrito_Estado() {
-        return Carrito_Estado;
+    public int getCarritoEstado() {
+        return carritoEstado;
     }
 
-    public void setCarrito_Estado(int Carrito_Estado) {
-        this.Carrito_Estado = Carrito_Estado;
+    public void setCarritoEstado(int carritoEstado) {
+        this.carritoEstado = carritoEstado;
     }
 
     public Usuario getUsuario() {
@@ -61,6 +64,5 @@ public class Carrito {
         this.detalles = detalles;
     }
 
-       
     
 }

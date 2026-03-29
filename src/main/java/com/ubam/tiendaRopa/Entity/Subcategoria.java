@@ -13,11 +13,14 @@ import java.util.List;
 @Entity
 @Table(name="subcategoria")
 public class Subcategoria {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int SubcategoriaId;
+    @Column(name="SubcategoriaId")
+    private int subcategoriaId;
 
-    private String Subcategoria_Nombre;
+    @Column(name="Subcategoria_Nombre")
+    private String subcategoriaNombre;
 
     @ManyToOne
     @JoinColumn(name="Subcategoria_Categoria")
@@ -29,19 +32,19 @@ public class Subcategoria {
     /**/
 
     public int getSubcategoriaId() {
-        return SubcategoriaId;
+        return subcategoriaId;
     }
 
-    public void setSubcategoriaId(int SubcategoriaId) {
-        this.SubcategoriaId = SubcategoriaId;
+    public void setSubcategoriaId(int subcategoriaId) {
+        this.subcategoriaId = subcategoriaId;
     }
 
-    public String getSubcategoria_Nombre() {
-        return Subcategoria_Nombre;
+    public String getSubcategoriaNombre() {
+        return subcategoriaNombre;
     }
 
-    public void setSubcategoria_Nombre(String Subcategoria_Nombre) {
-        this.Subcategoria_Nombre = Subcategoria_Nombre;
+    public void setSubcategoriaNombre(String subcategoriaNombre) {
+        this.subcategoriaNombre = subcategoriaNombre;
     }
 
     public Categoria getCategoria() {
@@ -59,6 +62,6 @@ public class Subcategoria {
     public void setProductos(List<Producto> productos) {
         this.productos = productos;
     }
-    
+
     
 }

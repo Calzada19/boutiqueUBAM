@@ -12,11 +12,14 @@ import jakarta.persistence.*;
 @Entity
 @Table(name="cdetalle")
 public class CDetalle {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="CDetalleId")
     private int CDetalleId;
 
-    private int CDetalle_Cantidad;
+    @Column(name="CDetalle_Cantidad")
+    private int CDetalleCantidad;
 
     @ManyToOne
     @JoinColumn(name="CDetalle_CarritoId")
@@ -36,12 +39,12 @@ public class CDetalle {
         this.CDetalleId = CDetalleId;
     }
 
-    public int getCDetalle_Cantidad() {
-        return CDetalle_Cantidad;
+    public int getCDetalleCantidad() {
+        return CDetalleCantidad;
     }
 
-    public void setCDetalle_Cantidad(int CDetalle_Cantidad) {
-        this.CDetalle_Cantidad = CDetalle_Cantidad;
+    public void setCDetalleCantidad(int CDetalleCantidad) {
+        this.CDetalleCantidad = CDetalleCantidad;
     }
 
     public Carrito getCarrito() {
@@ -59,6 +62,6 @@ public class CDetalle {
     public void setProducto(Producto producto) {
         this.producto = producto;
     }
-    
+
     
 }

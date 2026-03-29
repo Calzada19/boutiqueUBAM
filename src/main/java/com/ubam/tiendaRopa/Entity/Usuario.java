@@ -13,81 +13,89 @@ import jakarta.persistence.*;
 @Entity
 @Table(name="usuario")
 public class Usuario {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int UsuarioId;
+    @Column(name="UsuarioId")
+    private int usuarioId;
 
-    private String Usuario_Nombre;
+    @Column(name="Usuario_Nombre")
+    private String usuarioNombre;
 
-    private String Usuario_ApePat;
+    @Column(name="Usuario_ApePat")
+    private String usuarioApePat;
 
-    private String Usuario_ApeMat;
+    @Column(name="Usuario_ApeMat")
+    private String usuarioApeMat;
 
-    private String Usuario_Correo;
+    @Column(name="Usuario_Correo")
+    private String usuarioCorreo;
 
-    private String Usuario_Contra;
+    @Column(name="Usuario_Contra")
+    private String usuarioContra;
 
-    private int Usuario_Tipo;
-    
+    @Column(name="Usuario_Tipo")
+    private int usuarioTipo;
+
     @OneToOne(mappedBy="usuario")
     private Carrito carrito;
     
     /**/
 
     public int getUsuarioId() {
-        return UsuarioId;
+        return usuarioId;
     }
 
-    public void setUsuarioId(int UsuarioId) {
-        this.UsuarioId = UsuarioId;
+    public void setUsuarioId(int usuarioId) {
+        this.usuarioId = usuarioId;
     }
 
-    public String getUsuario_Nombre() {
-        return Usuario_Nombre;
+    public String getUsuarioNombre() {
+        return usuarioNombre;
     }
 
-    public void setUsuario_Nombre(String Usuario_Nombre) {
-        this.Usuario_Nombre = Usuario_Nombre;
+    public void setUsuarioNombre(String usuarioNombre) {
+        this.usuarioNombre = usuarioNombre;
     }
 
-    public String getUsuario_ApePat() {
-        return Usuario_ApePat;
+    public String getUsuarioApePat() {
+        return usuarioApePat;
     }
 
-    public void setUsuario_ApePat(String Usuario_ApePat) {
-        this.Usuario_ApePat = Usuario_ApePat;
+    public void setUsuarioApePat(String usuarioApePat) {
+        this.usuarioApePat = usuarioApePat;
     }
 
-    public String getUsuario_ApeMat() {
-        return Usuario_ApeMat;
+    public String getUsuarioApeMat() {
+        return usuarioApeMat;
     }
 
-    public void setUsuario_ApeMat(String Usuario_ApeMat) {
-        this.Usuario_ApeMat = Usuario_ApeMat;
+    public void setUsuarioApeMat(String usuarioApeMat) {
+        this.usuarioApeMat = usuarioApeMat;
     }
 
-    public String getUsuario_Correo() {
-        return Usuario_Correo;
+    public String getUsuarioCorreo() {
+        return usuarioCorreo;
     }
 
-    public void setUsuario_Correo(String Usuario_Correo) {
-        this.Usuario_Correo = Usuario_Correo;
+    public void setUsuarioCorreo(String usuarioCorreo) {
+        this.usuarioCorreo = usuarioCorreo;
     }
 
-    public String getUsuario_Contra() {
-        return Usuario_Contra;
+    public String getUsuarioContra() {
+        return usuarioContra;
     }
 
-    public void setUsuario_Contra(String Usuario_Contra) {
-        this.Usuario_Contra = Usuario_Contra;
+    public void setUsuarioContra(String usuarioContra) {
+        this.usuarioContra = usuarioContra;
     }
 
-    public int getUsuario_Tipo() {
-        return Usuario_Tipo;
+    public int getUsuarioTipo() {
+        return usuarioTipo;
     }
 
-    public void setUsuario_Tipo(int Usuario_Tipo) {
-        this.Usuario_Tipo = Usuario_Tipo;
+    public void setUsuarioTipo(int usuarioTipo) {
+        this.usuarioTipo = usuarioTipo;
     }
 
     public Carrito getCarrito() {
@@ -97,6 +105,6 @@ public class Usuario {
     public void setCarrito(Carrito carrito) {
         this.carrito = carrito;
     }
-    
+
     
 }

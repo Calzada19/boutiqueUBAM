@@ -12,14 +12,18 @@ import jakarta.persistence.*;
 @Entity
 @Table(name="imagen")
 public class Imagen {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ImagenId;
+    @Column(name="ImagenId")
+    private int imagenId;
 
     @Lob
-    private byte[] Imagen;
+    @Column(name="Imagen")
+    private byte[] imagen;
 
-    private int Imagen_Tipo;
+    @Column(name="Imagen_Tipo")
+    private int imagenTipo;
 
     @ManyToOne
     @JoinColumn(name="Imagen_ProductoId")
@@ -28,27 +32,27 @@ public class Imagen {
     /**/
 
     public int getImagenId() {
-        return ImagenId;
+        return imagenId;
     }
 
-    public void setImagenId(int ImagenId) {
-        this.ImagenId = ImagenId;
+    public void setImagenId(int imagenId) {
+        this.imagenId = imagenId;
     }
 
     public byte[] getImagen() {
-        return Imagen;
+        return imagen;
     }
 
-    public void setImagen(byte[] Imagen) {
-        this.Imagen = Imagen;
+    public void setImagen(byte[] imagen) {
+        this.imagen = imagen;
     }
 
-    public int getImagen_Tipo() {
-        return Imagen_Tipo;
+    public int getImagenTipo() {
+        return imagenTipo;
     }
 
-    public void setImagen_Tipo(int Imagen_Tipo) {
-        this.Imagen_Tipo = Imagen_Tipo;
+    public void setImagenTipo(int imagenTipo) {
+        this.imagenTipo = imagenTipo;
     }
 
     public Producto getProducto() {
@@ -58,6 +62,6 @@ public class Imagen {
     public void setProducto(Producto producto) {
         this.producto = producto;
     }
-    
-    
+
+        
 }

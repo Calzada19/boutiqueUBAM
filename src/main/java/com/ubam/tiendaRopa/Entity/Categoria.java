@@ -13,40 +13,45 @@ import java.util.List;
 @Entity
 @Table(name="categoria")
 public class Categoria {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int CategoriaId;
+    @Column(name="CategoriaId")
+    private int categoriaId;
 
-    private String Categoria_Nombre;
+    @Column(name="Categoria_Nombre")
+    private String categoriaNombre;
 
-    private Integer Categoria_Orden;
+    @Column(name="Categoria_Orden")
+    private Integer categoriaOrden;
 
     @OneToMany(mappedBy="categoria")
     private List<Subcategoria> subcategorias;
+    
     /**/
 
     public int getCategoriaId() {
-        return CategoriaId;
+        return categoriaId;
     }
 
-    public void setCategoriaId(int CategoriaId) {
-        this.CategoriaId = CategoriaId;
+    public void setCategoriaId(int categoriaId) {
+        this.categoriaId = categoriaId;
     }
 
-    public String getCategoria_Nombre() {
-        return Categoria_Nombre;
+    public String getCategoriaNombre() {
+        return categoriaNombre;
     }
 
-    public void setCategoria_Nombre(String Categoria_Nombre) {
-        this.Categoria_Nombre = Categoria_Nombre;
+    public void setCategoriaNombre(String categoriaNombre) {
+        this.categoriaNombre = categoriaNombre;
     }
 
-    public Integer getCategoria_Orden() {
-        return Categoria_Orden;
+    public Integer getCategoriaOrden() {
+        return categoriaOrden;
     }
 
-    public void setCategoria_Orden(Integer Categoria_Orden) {
-        this.Categoria_Orden = Categoria_Orden;
+    public void setCategoriaOrden(Integer categoriaOrden) {
+        this.categoriaOrden = categoriaOrden;
     }
 
     public List<Subcategoria> getSubcategorias() {
@@ -56,6 +61,6 @@ public class Categoria {
     public void setSubcategorias(List<Subcategoria> subcategorias) {
         this.subcategorias = subcategorias;
     }
-    
-    
+
+        
 }

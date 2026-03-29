@@ -6,16 +6,89 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Registro</title>
+<title>Registro - Urban Raw</title>
 <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h1>Registro</h1>
-<form>
-<input type="text" placeholder="Nombre" required>
-<input type="email" placeholder="Correo" required>
-<input type="password" placeholder="Contraseña" required>
-<button type="submit">Registrarse</button>
-</form>
+
+<div class="container">
+
+  <!-- PANEL IZQUIERDO -->
+  <div class="left-panel">
+    <div class="overlay"></div>
+
+    <div class="content">
+      <h1>
+        ÚNETE A<br>
+        <span>URBAN RAW</span>
+      </h1>
+      <p>Crea tu cuenta y accede a lo mejor del streetwear.</p>
+    </div>
+
+    <div class="grid"></div>
+  </div>
+
+  <!-- PANEL DERECHO -->
+  <div class="right-panel">
+
+    <div class="form-container">
+
+      <div class="header">
+        <h2>Crear Cuenta</h2>
+        <p>Regístrate para comenzar.</p>
+      </div>
+
+      <!-- 🔥 FORM CORRECTO -->
+      <form th:action="@{/registro}" method="post">
+
+        <!-- ERROR -->
+        <div th:if="${error}" style="color:red; margin-bottom:10px;">
+          <p th:text="${error}"></p>
+        </div>
+
+        <!-- NOMBRE -->
+        <label>Nombre</label>
+        <input type="text" name="Usuario_Nombre" required>
+
+        <!-- APELLIDO PATERNO -->
+        <label>Apellido Paterno</label>
+        <input type="text" name="Usuario_ApePat" required>
+
+        <!-- APELLIDO MATERNO -->
+        <label>Apellido Materno</label>
+        <input type="text" name="Usuario_ApeMat" required>
+
+        <!-- CORREO -->
+        <label>Correo</label>
+        <input type="email" name="Usuario_Correo" placeholder="tu@correo.com" required>
+
+        <!-- CONTRASEÑA -->
+        <label>Contraseña</label>
+        <div class="password-box">
+          <input type="password" name="Usuario_Contra" placeholder="••••••••" required>
+          <button type="button">👁</button>
+        </div>
+
+        <!-- TIPO (OCULTO) -->
+        <input type="hidden" name="Usuario_Tipo" value="1">
+
+        <!-- BOTÓN -->
+        <button type="submit" class="btn">Registrarse</button>
+
+      </form>
+
+      <!-- LINK -->
+      <div class="divider">
+        <span></span>
+        <a th:href="@{/login}">¿Ya tienes cuenta? Inicia sesión</a>
+        <span></span>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
 </body>
 </html>

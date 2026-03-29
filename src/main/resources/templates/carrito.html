@@ -13,31 +13,29 @@
 
     <h1 class="cart-title">CARRITO</h1>
 
-    <!-- LISTA DE PRODUCTOS -->
-    <div class="cart-items">
+    <div class="cart-items" th:if="${carrito != null}">
 
-        <!-- ITEM -->
-        <div class="cart-item" th:each="item : ${carrito}">
+        <div class="cart-item" th:each="item : ${carrito.detalles}">
             
-            <img th:src="${item.imagen}" alt="producto">
+            <img th:src="@{/imagen/{id}(id=${item.producto.ProductoId})}"
+                 onerror="this.src='/img/default.png'">
 
             <div class="info">
-                <h2 th:text="${item.nombre}">Producto</h2>
-                <p>$<span th:text="${item.precio}"></span></p>
-                <p>Cantidad: <span th:text="${item.cantidad}"></span></p>
+                <h2 th:text="${item.producto.productoNombre}"></h2>
+                <p>$<span th:text="${item.producto.productoPrecio}"></span></p>
+                <p>Cantidad: <span th:text="${item.cDetalleCantidad}"></span></p>
             </div>
 
             <div class="actions">
-                <a th:href="@{/carrito/eliminar/{id}(id=${item.id})}">✕</a>
+                <a th:href="@{/carrito/eliminar/{id}(id=${item.CDetalleId})}">✕</a>
             </div>
 
         </div>
 
     </div>
 
-    <!-- TOTAL -->
     <div class="cart-summary">
-        <h2>Total: $<span th:text="${total}">0</span></h2>
+        <h2>Total: $<span th:text="${total} ?: 0">0</span></h2>
         <a th:href="@{/checkout}" class="btn">Finalizar compra</a>
     </div>
 

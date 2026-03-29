@@ -5,6 +5,7 @@
 package com.ubam.tiendaRopa.Entity;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,75 +15,82 @@ import java.util.List;
 @Entity
 @Table(name="producto")
 public class Producto {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ProductoId;
+    @Column(name="ProductoId")
+    private int productoId;
 
-    private String Producto_Nombre;
+    @Column(name="Producto_Nombre")
+    private String productoNombre;
 
-    private String Producto_Descripcion;
+    @Column(name="Producto_Descripcion")
+    private String productoDescripcion;
 
-    private double Producto_Precio;
+    @Column(name="Producto_Precio")
+    private double productoPrecio;
 
-    private int Producto_Stock;
+    @Column(name="Producto_Stock")
+    private int productoStock;
 
-    private String Producto_SKU;
+    @Column(name="Producto_SKU")
+    private String productoSKU;
 
     @ManyToOne
     @JoinColumn(name="Producto_SubcatId")
     private Subcategoria subcategoria;
-    
-    @OneToMany(mappedBy="producto")
-    private List<Imagen> imagenes;
+
+    @OneToMany(mappedBy="producto", cascade = CascadeType.ALL)
+    private List<Imagen> imagenes = new ArrayList<>();
     
     /**/
 
     public int getProductoId() {
-        return ProductoId;
+        return productoId;
     }
 
-    public void setProductoId(int ProductoId) {
-        this.ProductoId = ProductoId;
+    public void setProductoId(int productoId) {
+        this.productoId = productoId;
     }
 
-    public String getProducto_Nombre() {
-        return Producto_Nombre;
+    public String getProductoNombre() {
+        return productoNombre;
     }
 
-    public void setProducto_Nombre(String Producto_Nombre) {
-        this.Producto_Nombre = Producto_Nombre;
+    public void setProductoNombre(String productoNombre) {
+        this.productoNombre = productoNombre;
     }
 
-    public String getProducto_Descripcion() {
-        return Producto_Descripcion;
+    public String getProductoDescripcion() {
+        return productoDescripcion;
     }
 
-    public void setProducto_Descripcion(String Producto_Descripcion) {
-        this.Producto_Descripcion = Producto_Descripcion;
+    public void setProductoDescripcion(String productoDescripcion) {
+        this.productoDescripcion = productoDescripcion;
     }
 
-    public double getProducto_Precio() {
-        return Producto_Precio;
+    public double getProductoPrecio() {
+        return productoPrecio;
     }
 
-    public void setProducto_Precio(double Producto_Precio) {
-        this.Producto_Precio = Producto_Precio;
+    public void setProductoPrecio(double productoPrecio) {
+        this.productoPrecio = productoPrecio;
     }
 
-    public int getProducto_Stock() {
-        return Producto_Stock;
+    public int getProductoStock() {
+        return productoStock;
     }
 
-    public void setProducto_Stock(int Producto_Stock) {
-        this.Producto_Stock = Producto_Stock;
+    public void setProductoStock(int productoStock) {
+        this.productoStock = productoStock;
     }
 
-    public String getProducto_SKU() {
-        return Producto_SKU;
+    public String getProductoSKU() {
+        return productoSKU;
     }
 
-    public void setProducto_SKU(String Producto_SKU) {
-        this.Producto_SKU = Producto_SKU;
+    public void setProductoSKU(String productoSKU) {
+        this.productoSKU = productoSKU;
     }
 
     public Subcategoria getSubcategoria() {
@@ -92,7 +100,7 @@ public class Producto {
     public void setSubcategoria(Subcategoria subcategoria) {
         this.subcategoria = subcategoria;
     }
-  
+
     public List<Imagen> getImagenes() {
         return imagenes;
     }
@@ -100,4 +108,6 @@ public class Producto {
     public void setImagenes(List<Imagen> imagenes) {
         this.imagenes = imagenes;
     }
+    
+    
 }

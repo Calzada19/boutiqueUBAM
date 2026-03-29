@@ -223,14 +223,12 @@ input:focus {
 
 .menu-item {
     position: relative;
+    padding-bottom: 10px;
 }
 
 .menu-item > a {
-    color: white;
-    text-decoration: none;
-    font-size: 14px;
-    letter-spacing: 2px;
-    transition: 0.3s;
+    display: block;
+    padding: 10px 5px;
 }
 
 .menu-item > a:hover {
@@ -240,14 +238,19 @@ input:focus {
 /* ===== MEGA MENU ===== */
 .mega-menu {
     position: absolute;
-    top: 40px;
+    top: 100%;
     left: 0;
     background: #111;
     padding: 20px 30px;
-    display: none;
     gap: 40px;
     border: 1px solid #222;
     min-width: 300px;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(5px); /* 👈 clave */
+    transition: 0.2s ease;
+    z-index: 3000;
 }
 
 /* COLUMNAS */
@@ -278,8 +281,10 @@ input:focus {
 
 /* SHOW MENU */
 .menu-item:hover .mega-menu {
-    display: flex;
-}
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}   
 
 /* ===== ACCIONES ===== */
 .acciones {

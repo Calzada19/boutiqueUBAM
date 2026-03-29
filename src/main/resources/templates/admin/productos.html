@@ -10,7 +10,6 @@
 
 <div class="admin-container">
 
-    <!-- SIDEBAR -->
     <aside class="sidebar">
         <h2 class="logo">PANEL <span>ADMIN</span></h2>
 
@@ -22,20 +21,17 @@
         </nav>
     </aside>
 
-    <!-- MAIN -->
     <main class="main-content">
 
-        <!-- HEADER -->
         <div class="top-bar">
             <a th:href="@{/}" class="back">← TIENDA</a>
             <h1>PRODUCTOS</h1>
 
-            <a th:href="@{/admin/agregarProducto}" class="btn-add">
+            <a th:href="@{/admin/agregar}" class="btn-add">
                 + AGREGAR
             </a>
         </div>
 
-        <!-- TABLE -->
         <div class="table-container">
             <table class="admin-table">
 
@@ -50,16 +46,22 @@
                 </thead>
 
                 <tbody>
-                    <tr th:each="p : ${productos}">
-                        <td th:text="${p.id_producto}"></td>
-                        <td th:text="${p.nombre}"></td>
-                        <td class="precio" th:text="'$' + ${p.precio}"></td>
-                        <td th:text="${p.stock}"></td>
+
+                    <tr th:if="${productos == null or #lists.isEmpty(productos)}">
+                        <td colspan="5">No hay productos registrados</td>
+                    </tr>
+
+                    <tr th:each="p : ${productos}" th:if="${productos != null}">
+                        <td th:text="${p.productoId}"></td>
+                        <td th:text="${p.productoNombre}"></td>
+                        <td th:text="'$' + ${p.productoPrecio}"></td>
+                        <td th:text="${p.productoStock}"></td>
                         <td class="acciones">
-                            <a th:href="@{/admin/editarProducto/{id}(id=${p.id_producto})}">✏</a>
-                            <a th:href="@{/admin/eliminarProducto/{id}(id=${p.id_producto})}">🗑</a>
+                            <a th:href="@{/admin/editarProducto/{id}(id=${p.ProductoId})}">✏</a>
+                            <a th:href="@{/admin/eliminarProducto/{id}(id=${p.ProductoId})}">🗑</a>
                         </td>
                     </tr>
+
                 </tbody>
 
             </table>

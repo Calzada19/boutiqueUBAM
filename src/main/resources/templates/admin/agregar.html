@@ -10,7 +10,6 @@
 
 <div class="admin-container">
 
-    <!-- SIDEBAR -->
     <aside class="sidebar">
         <h2 class="logo">PANEL <span>ADMIN</span></h2>
 
@@ -22,7 +21,6 @@
         </nav>
     </aside>
 
-    <!-- CONTENIDO -->
     <main class="admin-main">
 
         <div class="top-bar">
@@ -34,23 +32,32 @@
             <span>PRODUCTO</span>
         </h1>
 
-        <!-- FORMULARIO -->
         <div class="form-card">
+
             <form th:action="@{/admin/guardar}" method="post" enctype="multipart/form-data">
 
-                <input type="text" name="nombre" placeholder="Nombre del producto" required>
+                <label>Nombre</label>
+                <input type="text" name="Producto_Nombre" required>
 
-                <textarea name="descripcion" placeholder="Descripción" rows="3"></textarea>
+                <label>Descripción</label>
+                <textarea name="Producto_Descripcion" rows="3"></textarea>
 
-                <input type="number" name="precio" placeholder="Precio" required>
+                <label>Precio</label>
+                <input type="number" name="Producto_Precio" step="0.01" required>
 
-                <input type="number" name="stock" placeholder="Stock" required>
+                <label>Stock</label>
+                <input type="number" name="Producto_Stock" required>
+
+                <label>SKU</label>
+                <input type="text" name="Producto_SKU" required>
 
                 <label>Subcategoría</label>
-                <select name="subcategoria">
-                    <option value="1">Camisas</option>
-                    <option value="2">Pantalones</option>
-                    <option value="3">Vestidos</option>
+                <select name="subcategoria.SubcategoriaId">
+                    <option value="">Selecciona</option>
+                    <option th:each="s : ${subcategorias}"
+                            th:value="${s.SubcategoriaId}"
+                            th:text="${s.Subcategoria_Nombre}">
+                    </option>
                 </select>
 
                 <label>Imagen</label>
@@ -59,6 +66,7 @@
                 <button type="submit">Guardar Producto</button>
 
             </form>
+
         </div>
 
     </main>

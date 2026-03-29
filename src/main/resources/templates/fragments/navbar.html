@@ -5,63 +5,53 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 -->
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-
 <header class="navbar" th:fragment="navbar">
-
     <!-- LOGO -->
-    <div class="logo">
+    <a th:href="@{/}" class="logo">
         URBAN<span>RAW</span>
-    </div>
-
-    <!-- MENU CENTRADO -->
+    </a>
+    <!-- MENU -->
     <div class="menu">
         <div class="menu-item">
-            <a href="#">MUJER</a>
-
+            <a th:href="@{/productos(categoria='mujer')}">MUJER</a>
             <div class="mega-menu">
                 <div class="col">
                     <h4>Colección</h4>
-                    <a href="#">Playeras</a>
-                    <a href="#">Jeans</a>
-                    <a href="#">Vestidos</a>
-                    <a href="#">Pantalones</a>
-                </div>
-
-                <div class="col">
-                    <h4>Accesorios</h4>
-                    <a href="#">Zapatos</a>
-                    <a href="#">Bolsas</a>
-                    <a href="#">Accesorios</a>
+                    <a th:href="@{/productos(subcategoria='playeras')}">Playeras</a>
+                    <a th:href="@{/productos(subcategoria='jeans')}">Jeans</a>
+                    <a th:href="@{/productos(subcategoria='vestidos')}">Vestidos</a>
+                    <a th:href="@{/productos(subcategoria='pantalones')}">Pantalones</a>
                 </div>
             </div>
         </div>
-
         <div class="menu-item">
-            <a href="#">HOMBRE</a>
-
+            <a th:href="@{/productos(categoria='hombre')}">HOMBRE</a>
             <div class="mega-menu">
                 <div class="col">
                     <h4>Hombre</h4>
-                    <a href="#">Playeras</a>
-                    <a href="#">Camisas</a>
-                    <a href="#">Pantalones</a>
-                    <a href="#">Sudaderas</a>
+                    <a th:href="@{/productos(subcategoria='playeras')}">Playeras</a>
+                    <a th:href="@{/productos(subcategoria='camisas')}">Camisas</a>
+                    <a th:href="@{/productos(subcategoria='pantalones')}">Pantalones</a>
+                    <a th:href="@{/productos(subcategoria='sudaderas')}">Sudaderas</a>
                 </div>
             </div>
         </div>
-
         <div class="menu-item">
-            <a href="#">NIÑOS</a>
+            <a th:href="@{/productos(categoria='ninos')}">NIÑOS</a>
         </div>
     </div>
-
-    <!-- ICONOS DERECHA -->
+    <span th:if="${session.usuario != null}">
+    Hola, <span th:text="${session.usuario.usuarioNombre}"></span>
+</span>
+    <!-- ACCIONES -->
     <div class="acciones">
-        <a th:href="@{/login}">👤</a>
+        <a th:if="${session.usuario != null}" th:href="@{/logout}">🚪</a>
+        <a th:if="${session.usuario == null}" th:href="@{/login}">👤</a>
         <a th:href="@{/carrito}">🛍</a>
+        <!-- ADMIN -->
+        <a th:href="@{/admin/dashboard}">⚙</a>
+        <!--<a th:if="${session.usuario != null and session.usuario.usuarioTipo == 1}" th:href="@{/admin/dashboard}">⚙</a>-->
     </div>
-
 </header>
-
 </body>
 </html>

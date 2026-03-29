@@ -13,33 +13,36 @@
 
     <!-- IMAGEN -->
     <div class="producto-imagen">
-        <img th:src="@{/producto/imagen/{id}(id=${producto.id})}" alt="producto">
+        <img th:src="@{/imagen/{id}(id=${producto.ProductoId})}"
+             onerror="this.src='/img/default.png'">
     </div>
 
     <!-- INFO -->
     <div class="producto-info">
 
-        <p class="categoria" th:text="${producto.categoria}"></p>
-
-        <h1 th:text="${producto.nombre}"></h1>
-
-        <p class="precio" th:text="'$' + ${producto.precio}"></p>
-
-        <p class="descripcion" th:text="${producto.descripcion}"></p>
-
-        <!-- STOCK -->
-        <p class="stock" th:if="${producto.stock > 0}">
-            Disponible: <span th:text="${producto.stock}"></span>
+        <p class="categoria"
+           th:text="${producto.subcategoria.Subcategoria_Nombre}">
         </p>
 
-        <p class="stock agotado" th:if="${producto.stock == 0}">
+        <h1 th:text="${producto.productoNombre}"></h1>
+        
+        <p th:text="${producto.productoDescripcion}"></p>
+
+        <p th:text="'$' + ${producto.productoPrecio}"></p>
+
+        <!-- STOCK -->
+        <p class="stock" th:if="${producto.Producto_Stock > 0}">
+            Disponible: <span th:text="${producto.Producto_Stock}"></span>
+        </p>
+
+        <p class="stock agotado" th:if="${producto.Producto_Stock == 0}">
             Agotado
         </p>
 
         <!-- BOTÓN -->
-        <a th:href="@{/carrito/agregar/{id}(id=${producto.id})}"
+        <a th:href="@{/carrito/agregar/1/{id}(id=${producto.ProductoId})}"
            class="btn-carrito"
-           th:classappend="${producto.stock == 0} ? 'disabled'">
+           th:classappend="${producto.Producto_Stock == 0} ? 'disabled'">
             Agregar al carrito
         </a>
 
