@@ -27,4 +27,7 @@ public class CategoriaService {
     public void guardar(Categoria categoria){
         categoriaRepo.save(categoria);
     }
+    public Categoria obtener(int id){
+        return categoriaRepo.findById(id).orElse(null);
+    }
 }

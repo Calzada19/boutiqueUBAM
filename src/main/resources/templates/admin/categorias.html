@@ -37,7 +37,7 @@
             <form th:action="@{/admin/guardarCategoria}" method="post">
 
                 <label>Nombre</label>
-                <input type="text" name="Categoria_Nombre" required>
+                <input type="text" name="CategoriaNombre" required>
 
                 <label>Orden</label>
                 <input type="number" name="Categoria_Orden" required>
@@ -57,7 +57,7 @@
 
             <div class="card" th:each="c : ${categorias}">
                 <h2>📂</h2>
-                <p th:text="${c.Categoria_Nombre}"></p>
+                <p th:text="${c.CategoriaNombre}"></p>
 
                 <div class="acciones">
                     <a th:href="@{/admin/eliminarCategoria/{id}(id=${c.CategoriaId})}">🗑</a>

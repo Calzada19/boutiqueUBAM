@@ -36,33 +36,33 @@
 
             <form th:action="@{/admin/actualizarProducto}" method="post" enctype="multipart/form-data">
 
-                <input type="hidden" name="ProductoId" th:value="${producto.ProductoId}">
+                <input type="hidden" name="productoId" th:value="${producto.productoId}">
 
                 <label>Nombre</label>
-                <input type="text" name="Producto_Nombre"
-                       th:value="${producto.Producto_Nombre}" required>
+                <input type="text" name="ProductoNombre"
+                       th:value="${producto.ProductoNombre}" required>
 
                 <label>Descripción</label>
                 <textarea name="Producto_Descripcion" rows="3"
-                          th:text="${producto.Producto_Descripcion}"></textarea>
+                          th:text="${producto.ProductoDescripcion}"></textarea>
 
                 <label>Precio</label>
-                <input type="number" name="Producto_Precio"
-                       th:value="${producto.Producto_Precio}" required>
+                <input type="number" name="ProductoPrecio"
+                       th:value="${producto.ProductoPrecio}" required>
 
                 <label>Stock</label>
-                <input type="number" name="Producto_Stock"
-                       th:value="${producto.Producto_Stock}" required>
+                <input type="number" name="ProductoStock"
+                       th:value="${producto.ProductoStock}" required>
 
                 <label>SKU</label>
-                <input type="text" name="Producto_SKU"
-                       th:value="${producto.Producto_SKU}" required>
+                <input type="text" name="ProductoSKU"
+                       th:value="${producto.ProductoSKU}" required>
 
                 <label>Subcategoría</label>
                 <select name="subcategoria.SubcategoriaId">
                     <option th:each="s : ${subcategorias}"
                             th:value="${s.SubcategoriaId}"
-                            th:text="${s.Subcategoria_Nombre}"
+                            th:text="${s.SubcategoriaNombre}"
                             th:selected="${producto.subcategoria.SubcategoriaId == s.SubcategoriaId}">
                     </option>
                 </select>

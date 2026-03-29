@@ -41,4 +41,8 @@ public class ProductoService {
     productoRepo.deleteById(id);
 
     }
+    
+    public List<Producto> buscarPorCategoria(int categoriaId) {
+    return productoRepo.findBySubcategoria_Categoria_CategoriaId(categoriaId);
+}
 }

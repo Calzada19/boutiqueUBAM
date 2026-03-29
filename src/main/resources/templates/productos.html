@@ -13,17 +13,17 @@
 
     <!-- TITULO DINÁMICO -->
     <h2 class="titulo-categoria"
-        th:text="${categoria} ?: 'PRODUCTOS'"
+        th:text="${categoria} ?: 'PRODUCTOS'">
         PRODUCTOS
     </h2>
 
     <!-- GRID -->
     <div class="productos-grid">
 
-        <div class="producto-card" th:each="producto : ${productos}" th:if="${productos != null}">
+        <div class="producto-card" th:each="producto : ${productos}">
 
-            <a th:href="@{/producto/{id}(id=${producto.id})}">
-                <img th:src="@{/imagen/{id}(id=${producto.ProductoId})}">
+            <a th:href="@{/producto/{id}(id=${producto.productoId})}">
+                <img th:src="@{/producto/imagen/{id}(id=${producto.productoId})}">
             </a>
 
             <div class="producto-info">
@@ -32,8 +32,8 @@
             </div>
 
             <a class="btn-ver"
-               th:href="@{/producto/{id}(id=${producto.ProductoId})}"
-               Ver producto
+               th:href="@{/producto/{id}(id=${producto.productoId})}">
+                Ver producto
             </a>
 
         </div>

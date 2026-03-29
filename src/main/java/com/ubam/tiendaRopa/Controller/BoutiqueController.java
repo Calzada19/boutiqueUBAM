@@ -15,6 +15,7 @@ import com.ubam.tiendaRopa.Service.UsuarioService;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,9 +54,20 @@ public class BoutiqueController {
 
     // 🔹 LISTAR PRODUCTOS
     @GetMapping("/productos")
-    public String productos(Model model){
+    public String productos(
+            @RequestParam(required = false) Integer categoria,
+            Model model) {
 
-        model.addAttribute("productos", productoService.listar());
+        List<Producto> productos;
+
+        if (categoria != null) {
+            productos = productoService.buscarPorCategoria(categoria);
+            model.addAttribute("categoria", categoriaService.obtener(categoria).getCategoriaNombre());
+        } else {
+            productos = productoService.listar();
+        }
+
+        model.addAttribute("productos", productos);
 
         return "productos";
     }
@@ -74,15 +86,20 @@ public class BoutiqueController {
     // 🔹 IMAGEN DESDE BD
     @GetMapping("/producto/imagen/{id}")
     @ResponseBody
-    public byte[] imagenProducto(@PathVariable int id) {
+    public ResponseEntity<byte[]> imagenProducto(@PathVariable int id) {
 
         Producto producto = productoService.obtener(id);
 
         if (producto.getImagenes() != null && !producto.getImagenes().isEmpty()) {
-            return producto.getImagenes().get(0).getImagen();
+
+            byte[] imagen = producto.getImagenes().get(0).getImagen();
+
+            return ResponseEntity.ok()
+                    .header("Content-Type", "image/jpeg") // 🔥 importante
+                    .body(imagen);
         }
 
-        return new byte[0];
+        return ResponseEntity.notFound().build();
     }
 
     // 🔹 CARRITO
@@ -104,11 +121,15 @@ public class BoutiqueController {
 
     // 🔹 AGREGAR AL CARRITO
     @GetMapping("/carrito/agregar/{id}")
-    public String agregar(@PathVariable int id) {
+    public String agregar(@PathVariable int id, HttpSession session) {
 
-        int usuarioId = 1; // 🔥 temporal
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
 
-        carritoService.agregarProducto(usuarioId, id);
+        if (usuario == null) {
+            return "redirect:/login";
+        }
+
+        carritoService.agregarProducto(usuario.getUsuarioId(), id);
 
         return "redirect:/carrito";
     }

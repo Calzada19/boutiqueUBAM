@@ -34,22 +34,22 @@
 
         <div class="form-card">
 
-            <form th:action="@{/admin/guardar}" method="post" enctype="multipart/form-data">
+            <form th:action="@{/admin/guardar}" th:object="${producto}" method="post" enctype="multipart/form-data">
 
                 <label>Nombre</label>
-                <input type="text" name="Producto_Nombre" required>
+                <input type="text" th:field="*{productoNombre}" class="form-control" placeholder="Nombre" required />
 
                 <label>Descripción</label>
-                <textarea name="Producto_Descripcion" rows="3"></textarea>
+                <textarea th:field="*{productoDescripcion}" class="form-control" placeholder="Descripción"></textarea>
 
                 <label>Precio</label>
-                <input type="number" name="Producto_Precio" step="0.01" required>
+                <input type="number" th:field="*{productoPrecio}" step="0.01" class="form-control" />
 
                 <label>Stock</label>
-                <input type="number" name="Producto_Stock" required>
+                <input type="number" th:field="*{productoStock}" step="1" class="form-control" />
 
                 <label>SKU</label>
-                <input type="text" name="Producto_SKU" required>
+                <input type="text" th:field="*{productoSKU}" class="form-control" />
 
                 <label>Subcategoría</label>
                 <select name="subcategoria.subcategoriaId">
