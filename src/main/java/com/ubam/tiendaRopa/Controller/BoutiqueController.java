@@ -55,16 +55,17 @@ public class BoutiqueController {
     // 🔹 LISTAR PRODUCTOS
     @GetMapping("/productos")
     public String productos(
-            @RequestParam(required = false) Integer categoria,
+            @RequestParam(required = false) String categoria,
             Model model) {
 
         List<Producto> productos;
 
         if (categoria != null) {
-            productos = productoService.buscarPorCategoria(categoria);
-            model.addAttribute("categoria", categoriaService.obtener(categoria).getCategoriaNombre());
+            productos = productoService.buscarPorCategoriaNombre(categoria);
+            model.addAttribute("categoria", categoria);
         } else {
             productos = productoService.listar();
+            model.addAttribute("categoria", "PRODUCTOS");
         }
 
         model.addAttribute("productos", productos);

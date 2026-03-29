@@ -14,5 +14,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface ProductoRepository extends JpaRepository<Producto, Integer> {
 
-    List<Producto> findBySubcategoria_Categoria_CategoriaId(int categoriaId);
+    List<Producto> findBySubcategoria_SubcategoriaNombre(String nombre);
 }

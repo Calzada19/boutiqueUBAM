@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *
- * @author carlo
+ * @author carlos
  */
 @Entity
 @Table(name="carrito")
