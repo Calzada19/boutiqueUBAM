@@ -52,11 +52,11 @@
                 <input type="text" name="Producto_SKU" required>
 
                 <label>Subcategoría</label>
-                <select name="subcategoria.SubcategoriaId">
+                <select name="subcategoria.subcategoriaId">
                     <option value="">Selecciona</option>
                     <option th:each="s : ${subcategorias}"
                             th:value="${s.SubcategoriaId}"
-                            th:text="${s.Subcategoria_Nombre}">
+                            th:text="${s.SubcategoriaNombre}">
                     </option>
                 </select>
 

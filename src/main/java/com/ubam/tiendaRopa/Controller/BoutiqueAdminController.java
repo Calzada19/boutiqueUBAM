@@ -8,6 +8,7 @@ import com.ubam.tiendaRopa.Entity.Categoria;
 import com.ubam.tiendaRopa.Entity.Imagen;
 import com.ubam.tiendaRopa.Entity.Producto;
 import com.ubam.tiendaRopa.Entity.Usuario;
+import com.ubam.tiendaRopa.Repository.ImagenRepository;
 import com.ubam.tiendaRopa.Service.CategoriaService;
 import com.ubam.tiendaRopa.Service.ProductoService;
 import com.ubam.tiendaRopa.Service.SubcategoriaService;
@@ -35,29 +36,26 @@ public class BoutiqueAdminController {
     private ProductoService productoService;
 
     @Autowired
+    private ImagenRepository imagenRepository;
+    
+    @Autowired
     private CategoriaService categoriaService;
 
     @Autowired
     private SubcategoriaService subcategoriaService;
 
-    @GetMapping("/admin/dashboard")
-    public String dashboard(HttpSession session){
+    // 🔹 DASHBOARD
+    @GetMapping("/dashboard")
+    public String dashboard(Model model, HttpSession session) {
+
+        model.addAttribute("totalProductos", productoService.listar().size());
+        model.addAttribute("totalCategorias", categoriaService.listar().size());
 
         Usuario usuario = (Usuario) session.getAttribute("usuario");
 
         if(usuario == null || usuario.getUsuarioTipo() != 1){
             return "redirect:/login";
         }
-
-        return "admin/dashboard";
-    }
-
-    // 🔹 DASHBOARD
-    @GetMapping("/dashboard")
-    public String dashboard(Model model) {
-
-        model.addAttribute("totalProductos", productoService.listar().size());
-        model.addAttribute("totalCategorias", categoriaService.listar().size());
 
         return "admin/dashboard";
     }
@@ -86,14 +84,17 @@ public class BoutiqueAdminController {
                           @RequestParam("imagen") MultipartFile file) {
 
         try {
+            // 🔥 1. guardar producto primero
             productoService.guardar(producto);
 
+            // 🔥 2. guardar imagen
             if (!file.isEmpty()) {
+
                 Imagen img = new Imagen();
                 img.setImagen(file.getBytes());
                 img.setProducto(producto);
 
-                producto.getImagenes().add(img);
+                imagenRepository.save(img); 
             }
 
         } catch (Exception e) {
