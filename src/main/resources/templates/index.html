@@ -45,21 +45,21 @@
 
         <div class="card">
             <img th:src="@{/img/mujer.jpg}" alt="Mujer">
-            <a th:href="@{/productos(categoria='mujer')}" class="overlay-card">
+            <a th:href="@{/productos/{id}(id=2)}" class="overlay-card">
                 <h1>MUJER</h1>
             </a>
         </div>
 
         <div class="card">
             <img th:src="@{/img/hombre.jpg}" alt="Hombre">
-            <a th:href="@{/productos(categoria='hombre')}" class="overlay-card">
+            <a th:href="@{/productos/{id}(id=1)}" class="overlay-card">
                 <h1>HOMBRE</h1>
             </a>
         </div>
 
         <div class="card">
             <img th:src="@{/img/kids.jpg}" alt="Kids">
-            <a th:href="@{/productos(categoria='ninos')}" class="overlay-card">
+            <a th:href="@{/productos/{id}(id=3)}" class="overlay-card">
                 <h1>KIDS</h1>
             </a>
         </div>
@@ -73,21 +73,24 @@
 
     <h2 class="titulo">Productos</h2>
 
-    <div class="card-container">
+    <div class="grid-productos">
 
-        <!-- Si no existe 'productos' no falla -->
-        <div class="card" th:each="p : ${productos}">
+        <div class="card-producto" th:each="p : ${productos}">
 
-            <!-- Imagen temporal -->
-            <img th:src="@{/img/default.png}" alt="Producto">
+            <div class="img-container">
+                <img th:src="@{/producto/imagen/{id}(id=${p.productoId})}" 
+                     onerror="this.src='/img/default.png'">
+            </div>
 
-            <h3 th:text="${p.Producto_Nombre}">Nombre producto</h3>
+            <div class="info">
+                <h3 th:text="${p.productoNombre}">Nombre producto</h3>
+                <p class="precio" th:text="'$' + ${p.productoPrecio}">$0.00</p>
 
-            <p th:text="'$' + ${p.Producto_Precio}">$0.00</p>
-
-            <a th:href="@{/producto/{id}(id=${p.ProductoId})}">
-                Ver producto
-            </a>
+                <a class="btn-ver" 
+                   th:href="@{/producto/{id}(id=${p.productoId})}">
+                    Ver producto
+                </a>
+            </div>
 
         </div>
 

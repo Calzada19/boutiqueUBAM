@@ -41,6 +41,7 @@
                         <th>NOMBRE</th>
                         <th>PRECIO</th>
                         <th>STOCK</th>
+                        <th>IMAGEN</th>
                         <th>ACCIONES</th>
                     </tr>
                 </thead>
@@ -51,14 +52,15 @@
                         <td colspan="5">No hay productos registrados</td>
                     </tr>
 
-                    <tr th:each="p : ${productos}" th:if="${productos != null}">
+                    <tr th:each="p : ${productos}">
                         <td th:text="${p.productoId}"></td>
                         <td th:text="${p.productoNombre}"></td>
                         <td th:text="'$' + ${p.productoPrecio}"></td>
                         <td th:text="${p.productoStock}"></td>
+                        <td><img th:src="@{/producto/imagen/{id}(id=${p.productoId})}"></td>
                         <td class="acciones">
-                            <a th:href="@{/admin/editarProducto/{id}(id=${p.ProductoId})}">✏</a>
-                            <a th:href="@{/admin/eliminarProducto/{id}(id=${p.ProductoId})}">🗑</a>
+                            <a th:href="@{/admin/editarProducto/{id}(id=${p.productoId})}">✏</a>
+<a th:href="@{/admin/eliminarProducto/{id}(id=${p.productoId})}">🗑</a>
                         </td>
                     </tr>
 

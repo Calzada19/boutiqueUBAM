@@ -4,16 +4,21 @@
  */
 package com.ubam.tiendaRopa.Controller;
 
+import com.ubam.tiendaRopa.Entity.CDetalle;
 import com.ubam.tiendaRopa.Entity.Carrito;
 import com.ubam.tiendaRopa.Entity.Producto;
 import com.ubam.tiendaRopa.Entity.Usuario;
+import com.ubam.tiendaRopa.Repository.ProductoRepository;
 import com.ubam.tiendaRopa.Service.CarritoService;
 import com.ubam.tiendaRopa.Service.CategoriaService;
 import com.ubam.tiendaRopa.Service.ProductoService;
 import com.ubam.tiendaRopa.Service.SubcategoriaService;
 import com.ubam.tiendaRopa.Service.UsuarioService;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,6 +28,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -48,29 +54,40 @@ public class BoutiqueController {
 
     // 🔹 INICIO
     @GetMapping("/")
-    public String inicio(Model model) {
-        return "index";
-    }
+public String inicio(Model model) {
+
+    List<Producto> productos = productoService.listar(); // 🔥 trae todos
+
+    model.addAttribute("productos", productos);
+
+    return "index";
+}
+
 
     // 🔹 LISTAR PRODUCTOS
-    @GetMapping("/productos")
-    public String productos(
-            @RequestParam(required = false) Integer categoria,
-            Model model) {
+@GetMapping("/productos/{categoria}")
+public String productos(
+        @PathVariable Integer categoria,
+        Model model) {
 
-        List<Producto> productos;
+    List<Producto> productos = productoService.buscarPorCategoria(categoria);
 
-        if (categoria != null) {
-            productos = productoService.buscarPorCategoria(categoria);
-            model.addAttribute("categoria", categoriaService.obtener(categoria).getCategoriaNombre());
-        } else {
-            productos = productoService.listar();
-        }
+    var cat = categoriaService.obtener(categoria);
 
-        model.addAttribute("productos", productos);
-
-        return "productos";
+    if (cat != null) {
+        model.addAttribute("categoria", cat.getCategoriaNombre());
     }
+
+    // 🔥 AGRUPAR POR SUBCATEGORIA
+    Map<String, List<Producto>> productosPorSubcategoria = productos.stream()
+        .collect(Collectors.groupingBy(p -> 
+            p.getSubcategoria().getSubcategoriaNombre()
+        ));
+
+    model.addAttribute("productosPorSubcategoria", productosPorSubcategoria);
+
+    return "productos";
+}
 
     // 🔹 DETALLE PRODUCTO
     @GetMapping("/producto/{id}")
@@ -104,20 +121,35 @@ public class BoutiqueController {
 
     // 🔹 CARRITO
     @GetMapping("/carrito")
-    public String carrito(Model model, HttpSession session){
+public String carrito(Model model, HttpSession session){
 
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+    Usuario usuario = (Usuario) session.getAttribute("usuario");
 
-        if(usuario == null){
-            return "redirect:/login";
-        }
+    if(usuario == null){
+        return "redirect:/login";
+    }
 
-        Carrito carrito = carritoService.verCarrito(usuario.getUsuarioId());
+    Carrito carrito = carritoService.verCarrito(usuario.getUsuarioId());
 
-        model.addAttribute("carrito", carrito.getDetalles());
-
+    if (carrito == null || carrito.getDetalles() == null) {
+        model.addAttribute("carrito", new ArrayList<>());
+        model.addAttribute("total", 0);
         return "carrito";
     }
+
+    // LISTA DE PRODUCTOS SELECCIONADOS
+    model.addAttribute("carrito", carrito.getDetalles());
+
+    //  CALCULA TOTAL DEL CARRITO
+    double total = carrito.getDetalles()
+            .stream()
+            .mapToDouble(d -> d.getProducto().getProductoPrecio() * d.getCDetalleCantidad())
+            .sum();
+
+    model.addAttribute("total", total);
+
+    return "carrito";
+}
 
     // 🔹 AGREGAR AL CARRITO
     @GetMapping("/carrito/agregar/{id}")
@@ -194,7 +226,7 @@ public class BoutiqueController {
         u.setUsuarioCorreo(Usuario_Correo);
         u.setUsuarioContra(Usuario_Contra);
 
-        // 🔥 CLAVE
+        //  CLAVE
         u.setUsuarioTipo(2); // usuario normal
 
         usuarioService.registrar(u);
@@ -204,10 +236,81 @@ public class BoutiqueController {
     @GetMapping("/logout")
     public String logout(HttpSession session){
 
-        session.invalidate(); // 🔥 destruye toda la sesión
+        session.invalidate(); // destruye toda la sesión
 
         return "redirect:/";
     }
 
+    //==============================================================================================
+    // APARTADO PARA EL CHECKOUT
     
+    @GetMapping("/checkout")
+public String checkout(HttpSession session, Model model){
+
+    Usuario usuario = (Usuario) session.getAttribute("usuario");
+
+    if(usuario == null){
+        return "redirect:/login";
+    }
+
+    Carrito carrito = carritoService.verCarrito(usuario.getUsuarioId());
+
+    if(carrito == null || carrito.getDetalles().isEmpty()){
+        return "redirect:/carrito";
+    }
+
+    double total = carrito.getDetalles()
+            .stream()
+            .mapToDouble(d -> d.getProducto().getProductoPrecio() * d.getCDetalleCantidad())
+            .sum();
+
+    model.addAttribute("carrito", carrito.getDetalles());
+    model.addAttribute("total", total);
+
+    return "checkout";
+}
+
+
+@PostMapping("/checkout/confirmar")
+public String confirmarCompra(HttpSession session, RedirectAttributes flash){
+
+    Usuario usuario = (Usuario) session.getAttribute("usuario");
+
+    if(usuario == null){
+        return "redirect:/login";
+    }
+
+    Carrito carrito = carritoService.verCarrito(usuario.getUsuarioId());
+
+    if(carrito == null || carrito.getDetalles().isEmpty()){
+        return "redirect:/carrito";
+    }
+
+    // VALIDAR STOCK
+    for(CDetalle d : carrito.getDetalles()){
+        if(d.getProducto().getProductoStock() < d.getCDetalleCantidad()){
+            flash.addFlashAttribute("error", "Stock insuficiente");
+            return "redirect:/carrito";
+        }
+    }
+
+    // DESCONTAR STOCK
+    for(CDetalle d : carrito.getDetalles()){
+        Producto p = d.getProducto();
+
+        p.setProductoStock(
+            p.getProductoStock() - d.getCDetalleCantidad()
+        );
+
+        productoService.guardar(p);
+    }
+
+    // 🔥 VACIAR CARRITO CORRECTAMENTE
+    carritoService.vaciarCarrito(carrito);
+
+   flash.addFlashAttribute("success", "Compra realizada con éxito");
+return "redirect:/checkout";
+}
+
+
 }
