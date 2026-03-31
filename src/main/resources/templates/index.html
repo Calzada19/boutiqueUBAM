@@ -44,21 +44,21 @@
 
         <div class="card">
             <img th:src="@{/img/mujer.jpg}" alt="Mujer">
-            <a th:href="@{/productos(categoria='mujer')}" class="overlay-card">
+            <a th:href="@{/productos/{id}(id=2)}" class="overlay-card">
                 <h1>MUJER</h1>
             </a>
         </div>
 
         <div class="card">
             <img th:src="@{/img/hombre.jpg}" alt="Hombre">
-            <a th:href="@{/productos(categoria='hombre')}" class="overlay-card">
+            <a th:href="@{/productos/{id}(id=1)}" class="overlay-card">
                 <h1>HOMBRE</h1>
             </a>
         </div>
 
         <div class="card">
             <img th:src="@{/img/kids.jpg}" alt="Kids">
-            <a th:href="@{/productos(categoria='ninos')}" class="overlay-card">
+            <a th:href="@{/productos/{id}(id=3)}" class="overlay-card">
                 <h1>KIDS</h1>
             </a>
         </div>
@@ -67,5 +67,38 @@
 
 </section>
 
+<<<<<<< Updated upstream
+=======
+<!-- 🔥 PRODUCTOS DINÁMICOS (NO ROMPE SI AÚN NO HAY BACKEND) -->
+<section class="productos">
+
+    <h2 class="titulo">Productos</h2>
+
+    <div class="grid-productos">
+
+        <div class="card-producto" th:each="p : ${productos}">
+
+            <div class="img-container">
+                <img th:src="@{/producto/imagen/{id}(id=${p.productoId})}" 
+                     onerror="this.src='/img/default.png'">
+            </div>
+
+            <div class="info">
+                <h3 th:text="${p.productoNombre}">Nombre producto</h3>
+                <p class="precio" th:text="'$' + ${p.productoPrecio}">$0.00</p>
+
+                <a class="btn-ver" 
+                   th:href="@{/producto/{id}(id=${p.productoId})}">
+                    Ver producto
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+>>>>>>> Stashed changes
 </body>
 </html>

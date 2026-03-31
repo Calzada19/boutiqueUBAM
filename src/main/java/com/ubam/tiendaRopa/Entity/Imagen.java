@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.ubam.tiendaRopa.Entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 /**
@@ -21,9 +22,10 @@ public class Imagen {
 
     private int Imagen_Tipo;
 
-    @ManyToOne
-    @JoinColumn(name="Imagen_ProductoId")
-    private Producto producto;
+    @JsonIgnore
+@ManyToOne
+@JoinColumn(name="Imagen_ProductoId")
+private Producto producto;
     
     /**/
 

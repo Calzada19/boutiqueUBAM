@@ -547,3 +547,62 @@ input:focus {
 .btn-ver:hover {
     background: white;
 }
+
+
+/* SUBTITULO */
+.subtitulo {
+    font-size: 22px;
+    margin: 30px 0 10px;
+    color: white;
+}
+
+/* CARRUSEL */
+.carousel {
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+.carousel-track {
+    display: flex;
+    gap: 20px;
+}
+
+/* SCROLL BONITO */
+.carousel::-webkit-scrollbar {
+    height: 6px;
+}
+
+.carousel::-webkit-scrollbar-thumb {
+    background: #00ff88;
+    border-radius: 10px;
+}
+
+/* TARJETA HORIZONTAL */
+.carousel .producto-card {
+    min-width: 220px;
+    flex-shrink: 0;
+}
+
+.alert-success {
+    background: #00ff88;
+    color: black;
+    padding: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+    animation: fadeIn 0.5s ease;
+}
+
+.alert-error {
+    background: red;
+    color: white;
+    padding: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(-10px);}
+    to {opacity: 1; transform: translateY(0);}
+}

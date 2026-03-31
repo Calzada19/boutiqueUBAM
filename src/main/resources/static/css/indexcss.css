@@ -7,7 +7,7 @@
 
 body {
     background: #0a0a0a;
-    color: white;
+    color: black;
 }
 
 /* ===== HERO ===== */
@@ -157,56 +157,7 @@ body {
     color: #00ff88;
 }
 
-/* ===== NAVBAR ===== */
-header {
-    background: #0a0a0a;
-    border-bottom: 1px solid #333;
-    padding: 15px 30px;
-}
 
-/* CONTENEDOR */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* LINKS */
-.navbar a {
-    color: white;
-    text-decoration: none;
-    font-size: 14px;
-    margin-right: 20px;
-    transition: 0.3s;
-}
-
-.navbar a:hover {
-    color: #00ff88;
-}
-
-/* MENÚ */
-.menu {
-    display: flex;
-    gap: 20px;
-}
-
-/* SUBMENÚ */
-.submenu {
-    display: none;
-    position: absolute;
-    background: #111;
-    padding: 10px;
-}
-
-.menu-item:hover .submenu {
-    display: block;
-}
-
-/* BOTONES DERECHA */
-.nav-right {
-    display: flex;
-    gap: 15px;
-}
 /*=================================================================*/
 /* ===== NAVBAR ===== */
 .navbar {
@@ -307,4 +258,77 @@ header {
 
 .acciones a:hover {
     color: #00ff88;
+}
+
+/* CONTENEDOR */
+.productos {
+    padding: 50px 5%;
+    background: #0a0a0a;
+}
+
+/* GRID RESPONSIVE */
+.grid-productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+/* TARJETA */
+.card-producto {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.card-producto:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* IMAGEN CONTROLADA */
+.img-container {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+}
+
+.img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 🔥 CLAVE */
+}
+
+/* INFO */
+.info {
+    padding: 15px;
+    text-align: center;
+    color: #00ff88;;
+}
+
+.info h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+.precio {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* BOTÓN */
+.btn-ver {
+    display: inline-block;
+    padding: 8px 18px;
+    background: black;
+    color: white;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-ver:hover {
+    background: #333;
 }

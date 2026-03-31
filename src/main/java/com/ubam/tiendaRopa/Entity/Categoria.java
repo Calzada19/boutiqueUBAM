@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.ubam.tiendaRopa.Entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -22,7 +23,13 @@ public class Categoria {
     private Integer Categoria_Orden;
 
     @OneToMany(mappedBy="categoria")
+<<<<<<< Updated upstream
     private List<Subcategoria> subcategorias;
+=======
+@JsonIgnore
+private List<Subcategoria> subcategorias;
+    
+>>>>>>> Stashed changes
     /**/
 
     public int getCategoriaId() {
