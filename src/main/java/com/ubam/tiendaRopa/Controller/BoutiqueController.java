@@ -1,39 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.ubam.tiendaRopa.Controller;
 
-import com.ubam.tiendaRopa.Entity.CDetalle;
-import com.ubam.tiendaRopa.Entity.Carrito;
-import com.ubam.tiendaRopa.Entity.Producto;
-import com.ubam.tiendaRopa.Entity.Usuario;
-import com.ubam.tiendaRopa.Repository.ProductoRepository;
-import com.ubam.tiendaRopa.Service.CarritoService;
-import com.ubam.tiendaRopa.Service.CategoriaService;
-import com.ubam.tiendaRopa.Service.ProductoService;
-import com.ubam.tiendaRopa.Service.SubcategoriaService;
-import com.ubam.tiendaRopa.Service.UsuarioService;
+import com.ubam.tiendaRopa.Entity.*;
+import com.ubam.tiendaRopa.Service.*;
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-/**
- *
- * @author carlos
- */
+import java.util.*;
+import java.util.stream.Collectors;
+
 @Controller
 public class BoutiqueController {
 
@@ -45,75 +24,54 @@ public class BoutiqueController {
 
     @Autowired
     private UsuarioService usuarioService;
-    
-    @Autowired
-    private SubcategoriaService subcategoriaService;
 
     @Autowired
     private CarritoService carritoService;
 
     // 🔹 INICIO
     @GetMapping("/")
-public String inicio(Model model) {
-
-    List<Producto> productos = productoService.listar(); // 🔥 trae todos
-
-    model.addAttribute("productos", productos);
-
-    return "index";
-}
-
-
-    // 🔹 LISTAR PRODUCTOS
-@GetMapping("/productos/{categoria}")
-public String productos(
-        @PathVariable Integer categoria,
-        Model model) {
-
-    List<Producto> productos = productoService.buscarPorCategoria(categoria);
-
-    var cat = categoriaService.obtener(categoria);
-
-    if (cat != null) {
-        model.addAttribute("categoria", cat.getCategoriaNombre());
+    public String inicio(Model model) {
+        model.addAttribute("productos", productoService.listar());
+        return "index";
     }
 
-    // 🔥 AGRUPAR POR SUBCATEGORIA
-    Map<String, List<Producto>> productosPorSubcategoria = productos.stream()
-        .collect(Collectors.groupingBy(p -> 
-            p.getSubcategoria().getSubcategoriaNombre()
-        ));
+    // 🔹 PRODUCTOS POR CATEGORIA
+    @GetMapping("/productos/{categoria}")
+    public String productos(@PathVariable Integer categoria, Model model) {
 
-    model.addAttribute("productosPorSubcategoria", productosPorSubcategoria);
+        List<Producto> productos = productoService.buscarPorCategoria(categoria);
 
-    return "productos";
-}
+        var cat = categoriaService.obtener(categoria);
+        if (cat != null) {
+            model.addAttribute("categoria", cat.getCategoriaNombre());
+        }
+
+        Map<String, List<Producto>> agrupados = productos.stream()
+                .collect(Collectors.groupingBy(p ->
+                        p.getSubcategoria().getSubcategoriaNombre()));
+
+        model.addAttribute("productosPorSubcategoria", agrupados);
+
+        return "productos";
+    }
 
     // 🔹 DETALLE PRODUCTO
     @GetMapping("/producto/{id}")
-    public String producto(@PathVariable int id, Model model){
-
-        Producto producto = productoService.obtener(id);
-
-        model.addAttribute("producto", producto);
-
+    public String producto(@PathVariable int id, Model model) {
+        model.addAttribute("producto", productoService.obtener(id));
         return "producto";
     }
 
-    // 🔹 IMAGEN DESDE BD
+    // 🔹 IMAGEN
     @GetMapping("/producto/imagen/{id}")
     @ResponseBody
-    public ResponseEntity<byte[]> imagenProducto(@PathVariable int id) {
+    public ResponseEntity<byte[]> imagen(@PathVariable int id) {
+        Producto p = productoService.obtener(id);
 
-        Producto producto = productoService.obtener(id);
-
-        if (producto.getImagenes() != null && !producto.getImagenes().isEmpty()) {
-
-            byte[] imagen = producto.getImagenes().get(0).getImagen();
-
+        if (p.getImagenes() != null && !p.getImagenes().isEmpty()) {
             return ResponseEntity.ok()
-                    .header("Content-Type", "image/jpeg") // 🔥 importante
-                    .body(imagen);
+                    .header("Content-Type", "image/jpeg")
+                    .body(p.getImagenes().get(0).getImagen());
         }
 
         return ResponseEntity.notFound().build();
@@ -121,57 +79,44 @@ public String productos(
 
     // 🔹 CARRITO
     @GetMapping("/carrito")
-public String carrito(Model model, HttpSession session){
+    public String carrito(Model model, HttpSession session) {
 
-    Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Usuario u = (Usuario) session.getAttribute("usuario");
+        if (u == null) return "redirect:/login";
 
-    if(usuario == null){
-        return "redirect:/login";
-    }
+        Carrito carrito = carritoService.verCarrito(u.getUsuarioId());
 
-    Carrito carrito = carritoService.verCarrito(usuario.getUsuarioId());
+        if (carrito == null || carrito.getDetalles() == null) {
+            model.addAttribute("carrito", new ArrayList<>());
+            model.addAttribute("total", 0);
+            return "carrito";
+        }
 
-    if (carrito == null || carrito.getDetalles() == null) {
-        model.addAttribute("carrito", new ArrayList<>());
-        model.addAttribute("total", 0);
+        model.addAttribute("carrito", carrito.getDetalles());
+
+        double total = carrito.getDetalles().stream()
+                .mapToDouble(d -> d.getProducto().getProductoPrecio() * d.getCDetalleCantidad())
+                .sum();
+
+        model.addAttribute("total", total);
+
         return "carrito";
     }
 
-    // LISTA DE PRODUCTOS SELECCIONADOS
-    model.addAttribute("carrito", carrito.getDetalles());
-
-    //  CALCULA TOTAL DEL CARRITO
-    double total = carrito.getDetalles()
-            .stream()
-            .mapToDouble(d -> d.getProducto().getProductoPrecio() * d.getCDetalleCantidad())
-            .sum();
-
-    model.addAttribute("total", total);
-
-    return "carrito";
-}
-
-    // 🔹 AGREGAR AL CARRITO
+    // 🔹 AGREGAR
     @GetMapping("/carrito/agregar/{id}")
     public String agregar(@PathVariable int id, HttpSession session) {
+        Usuario u = (Usuario) session.getAttribute("usuario");
+        if (u == null) return "redirect:/login";
 
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
-
-        if (usuario == null) {
-            return "redirect:/login";
-        }
-
-        carritoService.agregarProducto(usuario.getUsuarioId(), id);
-
+        carritoService.agregarProducto(u.getUsuarioId(), id);
         return "redirect:/carrito";
     }
 
-    // 🔹 ELIMINAR DEL CARRITO
+    // 🔹 ELIMINAR
     @GetMapping("/carrito/eliminar/{id}")
     public String eliminar(@PathVariable int id) {
-
         carritoService.eliminarProducto(id);
-
         return "redirect:/carrito";
     }
 
@@ -182,135 +127,101 @@ public String carrito(Model model, HttpSession session){
     }
 
     @PostMapping("/login")
-    public String loginPost(
-            @RequestParam String correo,
-            @RequestParam String contra,
-            HttpSession session){
+    public String loginPost(@RequestParam String correo,
+                            @RequestParam String contra,
+                            HttpSession session) {
 
-        Usuario usuario = usuarioService.login(correo, contra);
+        Usuario u = usuarioService.login(correo, contra);
 
-        if(usuario != null){
-
-            session.setAttribute("usuario", usuario);
-
-            // 🔥 REDIRECCIÓN POR ROL
-            if(usuario.getUsuarioTipo() == 1){
-                return "redirect:/admin/dashboard";
-            }else{
-                return "redirect:/";
-            }
+        if (u != null) {
+            session.setAttribute("usuario", u);
+            return (u.getUsuarioTipo() == 1)
+                    ? "redirect:/admin/dashboard"
+                    : "redirect:/";
         }
 
         return "login";
     }
 
     // 🔐 REGISTRO
-    @GetMapping("/registro")
-    public String registro() {
-        return "registro";
-    }
-
     @PostMapping("/registro")
-    public String registrar(
-            @RequestParam String Usuario_Nombre,
-            @RequestParam String Usuario_ApePat,
-            @RequestParam String Usuario_ApeMat,
-            @RequestParam String Usuario_Correo,
-            @RequestParam String Usuario_Contra){
+    public String registrar(@RequestParam String Usuario_Nombre,
+                            @RequestParam String Usuario_ApePat,
+                            @RequestParam String Usuario_ApeMat,
+                            @RequestParam String Usuario_Correo,
+                            @RequestParam String Usuario_Contra) {
 
-            Usuario u = new Usuario();
-
+        Usuario u = new Usuario();
         u.setUsuarioNombre(Usuario_Nombre);
         u.setUsuarioApePat(Usuario_ApePat);
         u.setUsuarioApeMat(Usuario_ApeMat);
         u.setUsuarioCorreo(Usuario_Correo);
         u.setUsuarioContra(Usuario_Contra);
-
-        //  CLAVE
-        u.setUsuarioTipo(2); // usuario normal
+        u.setUsuarioTipo(2);
 
         usuarioService.registrar(u);
 
         return "redirect:/login";
     }
+
+    // 🔐 LOGOUT
     @GetMapping("/logout")
-    public String logout(HttpSession session){
-
-        session.invalidate(); // destruye toda la sesión
-
+    public String logout(HttpSession session) {
+        session.invalidate();
         return "redirect:/";
     }
 
-    //==============================================================================================
-    // APARTADO PARA EL CHECKOUT
-    
+    // 🔹 CHECKOUT
     @GetMapping("/checkout")
-public String checkout(HttpSession session, Model model){
+    public String checkout(HttpSession session, Model model) {
 
-    Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Usuario u = (Usuario) session.getAttribute("usuario");
+        if (u == null) return "redirect:/login";
 
-    if(usuario == null){
-        return "redirect:/login";
-    }
+        Carrito carrito = carritoService.verCarrito(u.getUsuarioId());
 
-    Carrito carrito = carritoService.verCarrito(usuario.getUsuarioId());
-
-    if(carrito == null || carrito.getDetalles().isEmpty()){
-        return "redirect:/carrito";
-    }
-
-    double total = carrito.getDetalles()
-            .stream()
-            .mapToDouble(d -> d.getProducto().getProductoPrecio() * d.getCDetalleCantidad())
-            .sum();
-
-    model.addAttribute("carrito", carrito.getDetalles());
-    model.addAttribute("total", total);
-
-    return "checkout";
-}
-
-
-@PostMapping("/checkout/confirmar")
-public String confirmarCompra(HttpSession session, RedirectAttributes flash){
-
-    Usuario usuario = (Usuario) session.getAttribute("usuario");
-
-    if(usuario == null){
-        return "redirect:/login";
-    }
-
-    Carrito carrito = carritoService.verCarrito(usuario.getUsuarioId());
-
-    if(carrito == null || carrito.getDetalles().isEmpty()){
-        return "redirect:/carrito";
-    }
-
-    // VALIDAR STOCK
-    for(CDetalle d : carrito.getDetalles()){
-        if(d.getProducto().getProductoStock() < d.getCDetalleCantidad()){
-            flash.addFlashAttribute("error", "Stock insuficiente");
+        if (carrito == null || carrito.getDetalles().isEmpty()) {
             return "redirect:/carrito";
         }
+
+        double total = carrito.getDetalles().stream()
+                .mapToDouble(d -> d.getProducto().getProductoPrecio() * d.getCDetalleCantidad())
+                .sum();
+
+        model.addAttribute("carrito", carrito.getDetalles());
+        model.addAttribute("total", total);
+
+        return "checkout";
     }
 
-    // DESCONTAR STOCK
-    for(CDetalle d : carrito.getDetalles()){
-        Producto p = d.getProducto();
+    @PostMapping("/checkout/confirmar")
+    public String confirmar(HttpSession session, RedirectAttributes flash) {
 
-        p.setProductoStock(
-            p.getProductoStock() - d.getCDetalleCantidad()
-        );
+        Usuario u = (Usuario) session.getAttribute("usuario");
+        if (u == null) return "redirect:/login";
 
-        productoService.guardar(p);
+        Carrito carrito = carritoService.verCarrito(u.getUsuarioId());
+
+        if (carrito == null || carrito.getDetalles().isEmpty()) {
+            return "redirect:/carrito";
+        }
+
+        for (CDetalle d : carrito.getDetalles()) {
+            if (d.getProducto().getProductoStock() < d.getCDetalleCantidad()) {
+                flash.addFlashAttribute("error", "Stock insuficiente");
+                return "redirect:/carrito";
+            }
+        }
+
+        for (CDetalle d : carrito.getDetalles()) {
+            Producto p = d.getProducto();
+            p.setProductoStock(p.getProductoStock() - d.getCDetalleCantidad());
+            productoService.guardar(p);
+        }
+
+        carritoService.vaciarCarrito(carrito);
+
+        flash.addFlashAttribute("success", "Compra realizada");
+        return "redirect:/checkout";
     }
-
-    // 🔥 VACIAR CARRITO CORRECTAMENTE
-    carritoService.vaciarCarrito(carrito);
-
-   flash.addFlashAttribute("success", "Compra realizada con éxito");
-return "redirect:/checkout";
-}
-
-
 }

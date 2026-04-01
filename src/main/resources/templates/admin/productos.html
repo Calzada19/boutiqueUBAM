@@ -47,6 +47,20 @@
                 </thead>
 
                 <tbody>
+                    <tr th:if="${productos == null or #lists.isEmpty(productos)}">
+                        <td colspan="5">No hay productos registrados</td>
+                    </tr>
+                    <tr th:each="p : ${productos}">
+                        <td th:text="${p.productoId}"></td>
+                        <td th:text="${p.productoNombre}"></td>
+                        <td th:text="'$' + ${p.productoPrecio}"></td>
+                        <td th:text="${p.productoStock}"></td>
+                        <td><img th:src="@{/producto/imagen/{id}(id=${p.productoId})}"></td>
+                        <td class="acciones">
+                            <a th:href="@{/admin/editarProducto/{id}(id=${p.productoId})}">✏</a>
+<a th:href="@{/admin/eliminarProducto/{id}(id=${p.productoId})}">🗑</a>
+                            <a th:href="@{/admin/editarProducto/{id}(id=${p.id_producto})}">✏</a>
+                            <a th:href="@{/admin/eliminarProducto/{id}(id=${p.id_producto})}">🗑</a>
 
                     <tr th:if="${productos == null or #lists.isEmpty(productos)}">
                         <td colspan="5">No hay productos registrados</td>
@@ -61,6 +75,7 @@
                         <td class="acciones">
                             <a th:href="@{/admin/editarProducto/{id}(id=${p.productoId})}">✏</a>
 <a th:href="@{/admin/eliminarProducto/{id}(id=${p.productoId})}">🗑</a>
+
                         </td>
                     </tr>
 

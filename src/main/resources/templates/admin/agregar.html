@@ -41,6 +41,24 @@
 
                 <label>Descripción</label>
                 <textarea th:field="*{productoDescripcion}" class="form-control" placeholder="Descripción" required></textarea>
+                <input type="number" name="precio" placeholder="Precio" required>
+
+                <label>Precio</label>
+                <input type="number" th:field="*{productoPrecio}" step="0.01" class="form-control" required/>
+
+                <label>Stock</label>
+                <input type="number" th:field="*{productoStock}" step="1" class="form-control" required/>
+
+                <label>SKU</label>
+                <input type="text" th:field="*{productoSKU}" class="form-control" required/>
+
+                <label>Subcategoría</label>
+                <select name="subcategoria">
+                    <option value="1">Camisas</option>
+                    <option value="2">Pantalones</option>
+                    <option value="3">Vestidos</option>
+                <label>Descripción</label>
+                <textarea th:field="*{productoDescripcion}" class="form-control" placeholder="Descripción" required></textarea>
 
                 <label>Precio</label>
                 <input type="number" th:field="*{productoPrecio}" step="0.01" class="form-control" required/>

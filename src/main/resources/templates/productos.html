@@ -53,6 +53,44 @@
 
                 </div>
 
+            <a th:href="@{/producto/{id}(id=${producto.id})}">
+                <img th:src="@{/producto/imagen/{id}(id=${producto.id})}" alt="producto">
+            </a>
+
+            </div>
+
+            <a class="btn-ver"
+               th:href="@{/producto/{id}(id=${producto.id})}">
+               Ver producto
+            </a>
+
+        <!-- CARRUSEL -->
+        <div class="carousel">
+
+            <div class="carousel-track">
+
+                <!-- PRODUCTO -->
+                <div class="producto-card"
+                     th:each="producto : ${entry.value}">
+
+                    <a th:href="@{/producto/{id}(id=${producto.productoId})}">
+                        <img th:src="@{/producto/imagen/{id}(id=${producto.productoId})}"
+                             onerror="this.src='/img/default.png'">
+                    </a>
+
+                    <div class="producto-info">
+                        <h3 th:text="${producto.productoNombre}">Nombre</h3>
+                        <p class="precio"
+                           th:text="'$' + ${producto.productoPrecio}">$0.00</p>
+                    </div>
+
+                    <a class="btn-ver"
+                       th:href="@{/producto/{id}(id=${producto.productoId})}">
+                        Ver producto
+                    </a>
+
+                </div>
+
             </div>
 
         </div>

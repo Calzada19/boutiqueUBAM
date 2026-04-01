@@ -48,7 +48,15 @@ public class ProductoService {
 
     }
     
+
     public List<Producto> buscarPorCategoria(int categoriaId) {
-    return productoRepo.findBySubcategoria_Categoria_CategoriaId(categoriaId);
+    return productoRepo.findBySubcategoria_Categoria_CategoriaId(categoriaId);}
+
+    public List<Producto> buscarPorCategoriaNombre(String nombre) {
+    return productoRepo.findBySubcategoria_SubcategoriaNombre(nombre);
+}
+    public List<Producto> buscarPorCategoria(Integer Subcategoria_Categoria) {
+    return productoRepo.findBySubcategoria_Categoria_CategoriaId(Subcategoria_Categoria);
+
 }
 }

@@ -29,7 +29,7 @@ public class Categoria {
     @OneToMany(mappedBy="categoria")
 @JsonIgnore
 private List<Subcategoria> subcategorias;
-    
+
     /**/
 
     public int getCategoriaId() {
