@@ -82,7 +82,7 @@ public class BoutiqueAdminController {
     // 🔹 GUARDAR PRODUCTO
     @PostMapping("/guardar")
     public String guardar(@ModelAttribute Producto producto,
-                          @RequestParam("imagen") MultipartFile file) {
+                        @RequestParam("imagen") MultipartFile file) {
 
         try {
             // 🔥 1. guardar producto primero
@@ -107,19 +107,21 @@ public class BoutiqueAdminController {
     }
 
     // 🔹 EDITAR
-    @GetMapping("/editar/{id}")
-    public String editar(@PathVariable int id, Model model) {
-        Producto producto = productoService.obtener(id);
+@GetMapping("/editarProducto/{id}")
+public String editar(@PathVariable int id, Model model) {
 
-        // Si el producto no existe, redirige a la lista con un mensaje
-        if (producto == null) {
-            return "redirect:/admin/productos?error=notfound";
-        }
+    Producto producto = productoService.obtener(id);
 
-        model.addAttribute("producto", producto);
-        model.addAttribute("subcategorias", subcategoriaService.listar());
-        return "/editar/{id}";
+    // Si el producto no existe
+    if (producto == null) {
+        return "redirect:/admin/productos?error=notfound";
     }
+
+    model.addAttribute("producto", producto);
+    model.addAttribute("subcategorias", subcategoriaService.listar());
+
+    return "admin/editar"; // 👈 SOLO el nombre de la vista
+}
 
     // 🔹 ACTUALIZAR
     @PostMapping("/actualizarProducto")

@@ -319,3 +319,8 @@ label{
     text-transform:uppercase;
     letter-spacing:1px;
 }
+
+img {
+    height: 100px;
+    width: 100;
+}

@@ -27,7 +27,7 @@ public class Carrito {
     @JoinColumn(name="Carrito_UsuarioId")
     private Usuario usuario;
 
-    @OneToMany(mappedBy="carrito", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy="carrito", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<CDetalle> detalles = new ArrayList<>();
     
     /**/

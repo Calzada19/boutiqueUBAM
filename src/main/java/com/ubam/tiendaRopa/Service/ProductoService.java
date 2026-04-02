@@ -6,6 +6,7 @@ package com.ubam.tiendaRopa.Service;
 
 import com.ubam.tiendaRopa.Entity.Producto;
 import com.ubam.tiendaRopa.Repository.ProductoRepository;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,12 @@ public class ProductoService {
 
     @Autowired
     private ProductoRepository productoRepo;
-
+    
+    //obtener los datos para la app
+    public ArrayList<Producto> obtenerProducto(){
+        return (ArrayList<Producto>) productoRepo.findAll();
+    }
+    
     public List<Producto> listar(){
         return productoRepo.findAll();
     }
@@ -42,7 +48,14 @@ public class ProductoService {
 
     }
     
+
     public List<Producto> buscarPorCategoriaNombre(String nombre) {
     return productoRepo.findBySubcategoria_SubcategoriaNombre(nombre);
+
+}
+    public List<Producto> buscarPorCategoria(Integer Subcategoria_Categoria) {
+    return productoRepo.findBySubcategoria_Categoria_CategoriaId(Subcategoria_Categoria);
+
+
 }
 }

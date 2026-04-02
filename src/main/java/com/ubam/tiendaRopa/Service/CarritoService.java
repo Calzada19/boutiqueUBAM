@@ -94,5 +94,15 @@ public class CarritoService {
 
     detalleRepo.delete(detalle);
 }
+
+    public void guardar(Carrito carrito){
+    carritoRepo.save(carrito);
+    
+}
+    public void vaciarCarrito(Carrito carrito){
+    carrito.getDetalles().clear();
+    carritoRepo.save(carrito);
+}
+    
 }
 

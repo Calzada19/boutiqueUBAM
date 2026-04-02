@@ -3,38 +3,95 @@
 <head>
 <meta charset="UTF-8">
 <title>Productos</title>
+
 <link rel="stylesheet" th:href="@{/css/style.css}">
+
 </head>
 <body>
 
+<!-- NAVBAR -->
 <header th:replace="fragments/navbar :: navbar"></header>
 
 <section class="productos-container">
 
-    <!-- TITULO DINÁMICO -->
+    <!-- TITULO -->
     <h2 class="titulo-categoria"
         th:text="${categoria} ?: 'PRODUCTOS'">
         PRODUCTOS
     </h2>
 
-    <!-- GRID -->
-    <div class="productos-grid">
+    <!-- 🔥 CARRUSELES POR SUBCATEGORIA -->
+    <div th:each="entry : ${productosPorSubcategoria}">
 
-        <div class="producto-card" th:each="producto : ${productos}">
+        <!-- NOMBRE SUBCATEGORIA -->
+        <h3 class="subtitulo" th:text="${entry.key}">Subcategoría</h3>
 
-            <a th:href="@{/producto/{id}(id=${producto.productoId})}">
-                <img th:src="@{/producto/imagen/{id}(id=${producto.productoId})}">
+        <!-- CARRUSEL -->
+        <div class="carousel">
+
+            <div class="carousel-track">
+
+                <!-- PRODUCTO -->
+                <div class="producto-card"
+                     th:each="producto : ${entry.value}">
+
+                    <a th:href="@{/producto/{id}(id=${producto.productoId})}">
+                        <img th:src="@{/producto/imagen/{id}(id=${producto.productoId})}"
+                             onerror="this.src='/img/default.png'">
+                    </a>
+
+                    <div class="producto-info">
+                        <h3 th:text="${producto.productoNombre}">Nombre</h3>
+                        <p class="precio"
+                           th:text="'$' + ${producto.productoPrecio}">$0.00</p>
+                    </div>
+
+                    <a class="btn-ver"
+                       th:href="@{/producto/{id}(id=${producto.productoId})}">
+                        Ver producto
+                    </a>
+
+                </div>
+
+            <a th:href="@{/producto/{id}(id=${producto.id})}">
+                <img th:src="@{/producto/imagen/{id}(id=${producto.id})}" alt="producto">
             </a>
 
-            <div class="producto-info">
-                <h3 th:text="${producto.productoNombre}"></h3>
-                <p th:text="'$' + ${producto.productoPrecio}"></p>
             </div>
 
             <a class="btn-ver"
-               th:href="@{/producto/{id}(id=${producto.productoId})}">
-                Ver producto
+               th:href="@{/producto/{id}(id=${producto.id})}">
+               Ver producto
             </a>
+
+        <!-- CARRUSEL -->
+        <div class="carousel">
+
+            <div class="carousel-track">
+
+                <!-- PRODUCTO -->
+                <div class="producto-card"
+                     th:each="producto : ${entry.value}">
+
+                    <a th:href="@{/producto/{id}(id=${producto.productoId})}">
+                        <img th:src="@{/producto/imagen/{id}(id=${producto.productoId})}"
+                             onerror="this.src='/img/default.png'">
+                    </a>
+
+                    <div class="producto-info">
+                        <h3 th:text="${producto.productoNombre}">Nombre</h3>
+                        <p class="precio"
+                           th:text="'$' + ${producto.productoPrecio}">$0.00</p>
+                    </div>
+
+                    <a class="btn-ver"
+                       th:href="@{/producto/{id}(id=${producto.productoId})}">
+                        Ver producto
+                    </a>
+
+                </div>
+
+            </div>
 
         </div>
 

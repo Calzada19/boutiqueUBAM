@@ -40,20 +40,38 @@
                 <input type="text" th:field="*{productoNombre}" class="form-control" placeholder="Nombre" required />
 
                 <label>Descripción</label>
-                <textarea th:field="*{productoDescripcion}" class="form-control" placeholder="Descripción"></textarea>
+                <textarea th:field="*{productoDescripcion}" class="form-control" placeholder="Descripción" required></textarea>
+                <input type="number" name="precio" placeholder="Precio" required>
 
                 <label>Precio</label>
-                <input type="number" th:field="*{productoPrecio}" step="0.01" class="form-control" />
+                <input type="number" th:field="*{productoPrecio}" step="0.01" class="form-control" required/>
 
                 <label>Stock</label>
-                <input type="number" th:field="*{productoStock}" step="1" class="form-control" />
+                <input type="number" th:field="*{productoStock}" step="1" class="form-control" required/>
 
                 <label>SKU</label>
-                <input type="text" th:field="*{productoSKU}" class="form-control" />
+                <input type="text" th:field="*{productoSKU}" class="form-control" required/>
+
+                <label>Subcategoría</label>
+                <select name="subcategoria">
+                    <option value="1">Camisas</option>
+                    <option value="2">Pantalones</option>
+                    <option value="3">Vestidos</option>
+                <label>Descripción</label>
+                <textarea th:field="*{productoDescripcion}" class="form-control" placeholder="Descripción" required></textarea>
+
+                <label>Precio</label>
+                <input type="number" th:field="*{productoPrecio}" step="0.01" class="form-control" required/>
+
+                <label>Stock</label>
+                <input type="number" th:field="*{productoStock}" step="1" class="form-control" required/>
+
+                <label>SKU</label>
+                <input type="text" th:field="*{productoSKU}" class="form-control" required/>
 
                 <label>Subcategoría</label>
                 <select name="subcategoria.subcategoriaId">
-                    <option value="">Selecciona</option>
+                    <option value="" required>Selecciona</option>
                     <option th:each="s : ${subcategorias}"
                             th:value="${s.SubcategoriaId}"
                             th:text="${s.SubcategoriaNombre}">
@@ -61,7 +79,7 @@
                 </select>
 
                 <label>Imagen</label>
-                <input type="file" name="imagen">
+                <input type="file" name="imagen" required>
 
                 <button type="submit">Guardar Producto</button>
 
