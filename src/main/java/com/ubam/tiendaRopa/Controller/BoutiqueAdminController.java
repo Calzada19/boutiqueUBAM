@@ -82,7 +82,7 @@ public class BoutiqueAdminController {
     // 🔹 GUARDAR PRODUCTO
     @PostMapping("/guardar")
     public String guardar(@ModelAttribute Producto producto,
-                          @RequestParam("imagen") MultipartFile file) {
+                        @RequestParam("imagen") MultipartFile file) {
 
         try {
             // 🔥 1. guardar producto primero
